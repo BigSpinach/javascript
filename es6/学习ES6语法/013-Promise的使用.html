@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		{
+			let ajax = function() {
+				console.log("开始执行");
+				//返回的是一个Promise对象，他有then()下一步的方法
+				return new Promise(function(resolve, reject) {
+					//resolve，要执行下一步的操作
+					//reject，要中断下一步的操作
+					setTimeout(function() {
+
+						resolve();
+						//console.log(resolve);
+
+					}, 1000);
+
+				});
+			};
+
+			ajax().then(function() {
+				console.log("结束ersolve");
+			});
+		}
+
+		//不断下一步
+		{
+			let ajax = function() {
+				console.log("开始不断下一步下一步");
+				return new Promise(function(resolve, reject) {
+					setTimeout(function() {
+						resolve();
+					}, 1000);
+				});
+			};
+
+			ajax().then(function() {
+				return new Promise(function(resolve, reject) {
+					setTimeout(function() {
+						resolve();
+					}, 2000);
+				}).then(function() {
+					console.log("结束ersolve");
+				});
+			})
+
+		}
+		
+		//Promise抛出错误 catch()方法
+		{
+			let ajax = function(num) {
+				console.log("开始3");
+				return new Promise(function(resolve, reject) {
+					if(num>3){
+						resolve();
+					}else{
+						throw new Error("出错了");
+					}
+				});
+			};
+			
+//			ajax(2).then(function(){
+//				console.log("没出错");
+//			}).catch(function(){
+//				console.log("请传入大于3的数");
+//			});
+			
+			ajax(6).then(function(){
+				console.log("没出错");
+			}).catch(function(){
+				console.log("请传入大于3的数");
+			});
+		}
+	</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>018-长轮询</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		{
+			//长轮询
+			//使用Generator处理异步，模拟ajax请求
+			let ajax = function *(){
+				yield new Promise(function(resolve,reject){
+					setTimeout(function(){
+						resolve({code:0});
+					},200);
+				});
+			}
+			
+			//执行后端通信1次
+			let pull =function(){
+				//实例化一个Generator函数（模拟ajax请求的函数）
+				let generator = ajax();
+				
+				//Generator.next()
+				let step = generator.next();
+				
+				step.value.then(function(d){
+					if(d.code!=0){
+						setTimeout(function(){
+							console.log('wait');
+							//继续执行通信（）
+							pull();
+						},1000)
+					}else{
+						console.log("over:"+d);
+					}
+				})
+			}
+			
+			pull();
+		}
+	</script>
+</html>

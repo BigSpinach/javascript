@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>012-class</title>
+		<link rel="stylesheet" type="text/css" href="css/install.css" />
+	</head>
+
+	<body>
+		<h1>01.构造函数</h1>
+		<pre>			
+				class Fulei{
+					constructor(name = '默认值') {
+						this.name = name;
+					}
+				}
+				//实例化这个对象
+				let v_Fulei = new Parent('v');
+				let s_Fulei = new Parent();
+				console.log('构造函数和实例', v_Fulei);
+				console.log('构造函数和实例', s_Fulei);		
+		</pre>
+
+		<!--02.继承-->
+		<h1>02.继承</h1>
+		<pre>
+			{
+				// 继承
+				class Parent {
+					constructor(name = '父类默认值') {
+						this.name = name;
+					}
+				}
+	
+				class Child extends Parent {
+	
+				}
+	
+				console.log('继承', new Child());
+			}
+		</pre>
+
+	</body>
+	<script type="text/javascript">
+		//1.构造函数
+		{
+			// 基本定义和生成实例
+			class Parent {
+				constructor(name = '默认值') {
+					this.name = name;
+				}
+			}
+			let v_parent = new Parent('v');
+			let s_parent = new Parent();
+			console.log('构造函数和实例', v_parent);
+			console.log('构造函数和实例', s_parent);
+		}
+
+		//2.继承---extends
+		{
+			// 继承
+			class Parent {
+				constructor(name = '父类默认值') {
+					this.name = name;
+				}
+			}
+
+			class Child extends Parent {
+
+			}
+
+			console.log('继承', new Child());
+		}
+
+		//3.继承传参问题
+		{
+			class Parent {
+				constructor(name = '父类默认值') {
+					this.name = name;
+				}
+			}
+
+			class Child extends Parent {
+				constructor(name = '子类默认值') {
+					//注意super一定要房子最顶层
+					super(name);//这一步完成了子类向父类传递了name参数
+					//第一子类自己的属性
+					this.type ='子类自己的type属性的默认值';
+						
+				}
+			}
+
+			console.log('子类传参-默认不传参', new Child());
+			//Child {name: "子类默认值", type: "子类自己的type属性的默认值"}
+			console.log('子类传参-传入一次参数', new Child('我是child'));
+			//Child {name: "我是child", type: "子类自己的type属性的默认值"}
+		}
+		
+		//4.get 和set 
+		{
+			class Father {
+				constructor(name="默认值"){
+					this.name=name;
+				}
+				
+				//注意：这里set 和get 的longName不是方法，而是一个属性，调用时要注意
+				get longName(){
+					return '新值-'+this.name;
+				}
+				
+				set longName(value){
+					return this.name=value;
+				}
+				
+			}
+			
+			//实例化对象
+			let p = new Father();
+			console.log(p.longName);
+			
+			p.longName = '设置的值';
+			console.log(p.longName);
+
+		}
+		
+		//5.静态方法
+		{
+			class Father{
+				constructor(name="xixi"){
+					this.name=name;
+				}
+				
+				//静态方法 static
+				static say(){
+					console.log("我是静态方法-执行静态方法时不需要实例化，直接   类.静态方法名()  即可");
+				}
+			}
+			console.log(Father.say());
+		}
+		
+		//6.静态属性
+		{
+			class Father{
+				constructor(name="xixi"){
+					this.name=name;
+				}
+			}
+			
+			//静态属性
+			Father.newAttr = "新属性的值";
+			
+			console.log(Father.newAttr);
+		}
+	</script>
+
+</html>

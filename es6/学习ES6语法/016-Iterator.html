@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>016-Iterator</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		{
+			let arr = ['a','b','c'];
+			let map = arr[Symbol.iterator]();
+			console.log(map);//Array Iterator {}
+			console.log(map.next());//{value: "a", done: false}
+			console.log(map.next());//{value: "b", done: false}
+			console.log(map.next());//{value: "c", done: false}
+			console.log(map.next());//{value: undefined, done: true}
+			console.log(map.next());//{value: undefined, done: true}
+		}
+		
+		{
+			let obj = {
+				arr1:[1,2,'a'],
+				arr2:[,32,"刘凯"],
+				
+				[Symbol.iterator](){
+					let self =this;
+					let arr =self.arr1.concat(self.arr2);
+					let index =0;
+					let len = arr.length;
+					
+					return {
+						next(){
+							if(index<len){
+								return{
+									value:arr[index++],
+									done:false
+								}
+							}else{
+								return{
+									value:arr[index++],
+									done:true
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			for(let k of obj){
+				console.log(k);
+			}
+		}
+	</script>
+</html>

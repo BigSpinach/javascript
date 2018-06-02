@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Proxy和Reflect----（代理和反射）</title>
+	</head>
+
+	<body>
+		<h1>代理和反射---Proxy&Reflect</h1>
+	</body>
+	<script>
+		let obj = {
+			name: '刘凯',
+			age: 25,
+			_sex: 1 //0表示女，1表示男
+		}
+
+		{
+			//1.Proxy代理----obj是被代理的对象
+			let monitor = new Proxy(obj, {
+				//这里书写对代理的obj的属性操作的方法
+				//*拦截对象对obj的读取---get{...}
+				get(target, key) {
+					//修改obj对象的目标属性的值为BigSpinach
+					return target[key].replace('刘凯', 'BigSpinach');
+					//return target[key].replace('2017','2018')
+				},
+
+				//*拦截对象对obj属性的设置---set{...}
+				set(target, key, value) {
+					//只允许修改name属性
+					if(key === 'name') {
+						return target[key] = value;
+					} else {
+						return target[key];
+					}
+				},
+
+				//*拦截对象对obj指定属性的展示--has{...}
+				has(target, key) {
+					//目的是只展示给用户obj的name属性
+					if(key === 'name') {
+						return target[key]
+					} else {
+						return false;
+					}
+				},
+				//*拦截delete ---只能删除指定条件的属性--deleteProperty{...}
+				deleteProperty(target, key) {
+					//只能删除含有‘_’字符的属性
+					if(key.indexOf('_') > -1) {
+						delete target[key];
+						return true;
+					} else {
+
+						return false;
+					}
+				},
+
+				//*拦截对Object.keys ,Object.getOwnOropropertySymblos,Object.getOwnOropropertyNames
+				//ownKeys{...}
+				ownKeys(target) {
+					return Object.keys(target).filter(item => item != 'age');
+				}
+			});
+
+			//测试get(target,key){...}		
+			console.log("get获取obj的'刘凯'字段并修改：", monitor.name);
+			//测试set(target,key,value){...}		
+			console.log("set修改属性：", monitor.name);
+			//console.log("set修改属性：", monitor.age);//报错
+
+			//测试has(target,key){...}
+			console.log("has：", monitor.name);
+			//console.log("has：", monitor.age);//报错
+
+			//测试deleteProperty(target,key){...}
+			/*
+			console.log("deleteProperty：", delete monitor._sex); //true
+			console.log("deleteProperty：", delete monitor.name); //false
+			console.log('delete',monitor);//delete Proxy {name: "刘凯", age: 25}
+			*/	
+			
+			//测试oenKeys(target){...}
+			console.log(Object.keys(monitor));// ["name", "_sex"]
+			//age属性被ownKeys方法屏蔽了，不会展示出来
+		}
+		
+		console.log('-------------------------	');
+		
+		{
+			//Reflect的使用
+			//注意：Reflect直接使用，不需要实例化
+			
+			console.log('Reflect:',Reflect.get(obj,'name'));
+			Reflect.set(obj,'age',250);
+			console.log(obj);//{name: "刘凯", age: 250, _sex: 1}
+			 console.log('has',Reflect.has(obj,'name'));
+		}
+	</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/install.css"/>
+	</head>
+	<body>
+		<div id="div1">
+			
+		</div>
+	</body>
+	
+	<script>
+		{//加载一张图片就显示
+			//加载img标签，并加载图片的方法
+			function loadImg(src){
+				return new Promise((resolve,reject)=>{
+					let img = document.createElement('img');
+					img.src =src;
+					img.onload=function(){
+						resolve(img);
+					};
+					img.onerror=function(err){
+						reject(err);
+					}
+				});
+			}
+			
+			//显示图片的方法
+			function showImgs(img){
+				
+					let p = document.createElement('p');
+					let div1=document.getElementById('div1');
+					p.appendChild(img);
+					div1.appendChild(p);
+				
+			};
+			
+			Promise.race([
+				//这里所有的异步操作执行完后，返回一个新的Promise对象，之后再执行下一步操作
+				loadImg("img/img01.png"),
+				loadImg("img/IDR_THEME_NTP_BACKGROUND.png"),
+				loadImg("img/img02.png"),
+				loadImg("img/img03.png"),
+			]).then(showImgs);
+			//console.log(a);
+			
+		}
+		
+		
+	</script>
+</html>

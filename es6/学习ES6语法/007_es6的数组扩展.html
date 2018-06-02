@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>07-es6数组扩展</title>
+	</head>
+
+	<body>
+		<h3>ES6数组扩展</h3>
+		<h3>111</h3>
+		<h3>1331</h3>
+	</body>
+	<script>
+		//Array.of();方法的使用
+		{
+			let arr1 = Array.of(1, 2, 3, 4, 5);
+			console.log(arr1); //[1,2,3,4,5]				
+
+			let arr2 = Array.of();
+			console.log(arr2); //[]
+		}
+		//Array.from(h3); 将h3集合转为一个数组
+		{
+			let h3 = document.querySelectorAll('h3');
+			let arr1 = Array.from(h3);
+			arr1.forEach(function(elem) {
+				console.log(elem.textContent);
+			});
+		}
+		//Array.from(arr,function(a){return a*2});
+		//将arr数组中的每一个元素进行操作
+		{
+			let arr = Array.from([1, 2, 3, ], function(a) {
+				return a * 2
+			})
+			console.log(arr); //[2,4,6]
+		}
+
+		//数组的替换功能1--arr.fill(x);替换所有元素为x
+		{
+			let arr = ['a', 23, undefined];
+			console.log(arr.fill("刘凯")); //["刘凯", "刘凯", "刘凯"]
+		}
+		//数组的替换功能2--arr.copyWithin(target, start = 0, end = this.length)  
+		/*
+			target （必需）：从该位置开始替换数据。
+			start （可选）：从该位置开始读取数据，默认为 0 。如果为负值，表示倒数。
+			end （可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示倒数。 
+		*/
+		{
+			//  将 3 号位复制到 0 号位  
+			//[1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+			// [4, 2, 3, 4, 5]  
+			console.log([1, 2, 3, 4, 5].copyWithin(0, 3, 4));
+		}
+
+		//数组的查找功能 --arr.keys()----arr.values()---arr.entries()
+		{
+			let arr = ['a', 2, undefined];
+			//1-----arr.keys()//返回arr数组的索引集合
+			for(let index of arr.keys()) {
+				console.log(index);
+			}
+
+			//2-----arr.values()//返回arr数组的值集合
+
+			/*			
+			//注意values()方法Google浏览器不支持
+			for(let value of arr.values()){
+				console.log(value);
+			}
+			*/
+
+			//3-----arr.entries()//返回arr数组的索引和值集合
+			for(let [index, value] of arr.entries()) {
+				console.log(index, value);
+			}
+
+			//数组的查找功能----arr.find(fun)-----arr.findIndex(fujn)----arr.includes(?)
+
+			{ //find(fun(){...});找到第一个满足条件的
+				let arr = ["a", 23, NaN];
+				console.log(arr.find(function(i) {
+					return i === 23
+				}));
+				//23----返回的是第一个满足条件的元素的值
+			}
+
+			{ //findIndx(fun)------fun必须是一个function才可以
+				let arr = ["a", 23, NaN];
+				console.log(arr.findIndex(function(i) {
+					return i = 0
+				}));
+				//0------找到了返回0找不到返回-1
+
+			}
+
+			{ //arr.includes(？)--返回arr中是否含有？这个值
+				let arr = ["a", 23, NaN];
+				console.log(arr.includes(23));//true
+				//结果为boolean值
+				
+			}
+
+		}
+	</script>
+
+</html>
