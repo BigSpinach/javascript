@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<script src="4.js"></script>-->
+	</head>
+
+	<body>
+		<h3>只对等号左边的进行变量提升</h3>
+		<blockquote>
+			=：赋值，左边是变量，右边都应该是值 javascript //=>之前 i%2===0?item.className='c1':item.className='c2'; //=>现在 item.className=i%2===0?'c1':'c2';
+		</blockquote>
+	</body>
+	<script>
+		var fn = function sum() {
+			console.log(sum); //->函数本身
+			console.log(1);
+			console.log(arguments.callee);
+			console.log(arguments);
+		};
+		fn();
+	</script>
+
+</html>
