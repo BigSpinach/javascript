@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><title>Date日期操作基础讲解</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h3 id="date日期操作基础讲解">Date日期操作基础讲解</h3>
+
+<blockquote>
+  <p>Date是日期类，通过它可以对时间进行处理</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<span class="hljs-comment">//=&gt;获取当前客户端本机时间（当前获取的时间不能作为重要的参考依据）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;获取的结果是一个日期格式的对象：Sun Oct 22 2017 15:58:40 GMT+0800 (中国标准时间)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">typeof</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() -&gt;<span class="hljs-string">'object'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//=&gt;time.getFullYear() 获取四位整数年</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//=&gt;time.getMonth() 获取月（0~11代表1~12月）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//=&gt;time.getDate() 获取日</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;time.getDay() 获取星期（0~6代表周日~周六）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//=&gt;time.getHours() 获取小时</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//=&gt;time.getMinutes() 获取分钟</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-comment">//=&gt;time.getSeconds() 获取秒</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-comment">//=&gt;time.getMilliseconds() 获取毫秒</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span><span class="hljs-comment">//=&gt;time.getTime() 获取当前日期距离'1970-01-01 00:00:00'的毫秒差</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2017-10-22'</span>); <span class="hljs-comment">//=&gt;当new Date中传递一个时间格式的字符串，相当于把这个字符串转换为标准的时间对象格式（转换完成后，就可以调取上面我们讲的那些方法了）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;时间格式的字符串</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-string">'2017-10-22'</span>  (IE下识别不了)
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-string">'2017/10/22'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-string">'2017/10/22 16:15:34'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-number">1508659621314</span> (如果传递的是距离<span class="hljs-number">1970</span>年的那个毫秒差，也是可以识别转换的，但是只能是数字，不能是字符串)
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>...
+</div></code></pre></div></body></html>

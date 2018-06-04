@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="3.自动生成验证码.js"></script>
+	</head>
+
+	<body>
+		<div class='box'>
+			<p id='licensePlate'></p>
+			<input type='button' value='摇号' id='shakeBtn' />
+		</div>
+	</body>
+	<!--<script>
+		//=>完成你的JS代码，实现老板安排的需求     
+		var licensePlate = document.getElementById('licensePlate'),
+			shakeBtn = document.getElementById('shakeBtn');
+		var n = 0;
+		shakeBtn.onclick = function() {
+			n++;
+			if(n > 3) return;
+			var area1 = 'ACEFGBO',
+				area2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+				result = '';
+			result += '京' + area1[random(0, 6)];
+			for(var i = 1; i <= 5; i++) {
+				result += area2[random(0, 35)];
+			}
+			return result;
+		}
+
+		function random(n, m) {
+			return Math.round(Math.random() * (m - n) + n);
+		}
+	</script>-->
+
+</html>

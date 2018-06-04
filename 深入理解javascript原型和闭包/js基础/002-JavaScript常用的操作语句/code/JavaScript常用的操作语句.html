@@ -1,0 +1,373 @@
+<!DOCTYPE html><html><head><title>JavaScript常用的操作语句</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h2 id="javascript常用的操作语句">JavaScript常用的操作语句</h2>
+
+<h3 id="js判断操作语句">JS判断操作语句</h3>
+
+<blockquote>
+  <p>通过一系列的逻辑判断，来完成特定的事情</p>
+</blockquote>
+
+<p><strong><code>if 、else if、else</code></strong></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span>(条件<span class="hljs-number">1</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//=&gt;条件1成立执行的操作</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(条件<span class="hljs-number">2</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-comment">//=&gt;条件1不成立,条件2成立执行的操作</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(条件<span class="hljs-number">3</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-comment">//=&gt;上面条件不成立，条件3成立执行的操作</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>...
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>else{
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-comment">//=&gt;以上条件都不成立执行的操作</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>}
+</div></code></pre>
+
+<p>案例剖析</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">5</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    num++;<span class="hljs-comment">//=&gt;num+=1  =&gt;num=num+1  在自身基础上累加1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &gt;= <span class="hljs-number">5</span> &amp;&amp; num &lt;= <span class="hljs-number">15</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-comment">//=&gt;&amp;&amp;：并且,所有条件都成立整体才成立</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-comment">//=&gt;||：或者,只要有一个条件成立整体就成立</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    num += <span class="hljs-number">2</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>} <span class="hljs-keyword">else</span> {
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-built_in">console</span>.log(num);<span class="hljs-comment">//=&gt;12</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;当在判断的操作中,很多条件都是符合的,执行完成第一个符合的条件后,后面的条件不管是否符合都不在处理了</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">if</span> (num &lt;= <span class="hljs-number">10</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    num++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &gt;= <span class="hljs-number">5</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-built_in">console</span>.log(num);<span class="hljs-comment">//=&gt;11</span>
+</div></code></pre>
+
+<p><strong><code>三元运算符</code></strong></p>
+
+<blockquote>
+  <p>语法：条件?条件成立执行:条件不成立执行;</p>
+  
+  <p>三元运算符是对if(){}else{}这种简单判断处理的简写，即使不使用三元运算符,if else也能处理</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//------------------</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">// if (num &gt;= 10) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//     num++;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">// } else {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//     num--;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">// }</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//------------------</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>num &gt;= <span class="hljs-number">10</span> ? num++ : num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-built_in">console</span>.log(num);<span class="hljs-comment">//=&gt;11</span>
+</div></code></pre>
+
+<blockquote>
+  <p>如果条件成立或者不成立的情况下，我们需要处理很多操作，那么需要把处理的事情用 <code>小括号</code> 包起来，每一个处理事情之间使用 <code>逗号</code> 分隔</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//------------------</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">// if (num &gt;= 10) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//     num++;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//     num = num * 10;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// } else {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//     num--;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//     num = num / 10;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">// }</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//------------------</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>num &gt;= <span class="hljs-number">10</span> ? (num++, num = num * <span class="hljs-number">10</span>) : (num--, num = num / <span class="hljs-number">10</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-built_in">console</span>.log(num);<span class="hljs-comment">//=&gt;110</span>
+</div></code></pre>
+
+<blockquote>
+  <p>对于复杂的一些判断操作，使用 if else会更加的清晰明了，此时慎用三元运算符</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//num &gt;= 0 ? (num &lt;= 10 ? num++ : num--) : (num &lt;= -10 ? num++ : num--);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//-&gt;改写成 if else</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">if</span> (num &gt;= <span class="hljs-number">0</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">if</span> (num &lt;= <span class="hljs-number">10</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        num++
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    } <span class="hljs-keyword">else</span> {
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>} <span class="hljs-keyword">else</span> {
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>    <span class="hljs-keyword">if</span> (num &lt;= <span class="hljs-number">-10</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>        num++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    } <span class="hljs-keyword">else</span> {
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>        num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>}
+</div></code></pre>
+
+<blockquote>
+  <p>如果条件成立或者不成立的情况下，我们不需要做任何事情，可以在三元运算符中使用null或者void 0(undefined)来占位即可</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// if (num == 10) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//     num++;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// }</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//num==10?num++:; //=&gt;Uncaught SyntaxError: Unexpected token ;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>num == <span class="hljs-number">10</span> ? num++ : <span class="hljs-literal">null</span>;<span class="hljs-comment">//=&gt;放undefined也可以(void 0)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>num == <span class="hljs-number">10</span> ? num++ : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+</div></code></pre>
+
+<p><strong><code>switch case</code></strong></p>
+
+<blockquote>
+  <p>也是if else某种特定情况的简写(另外一种写法)</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">switch</span>(变量或者值){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">case</span> [value1]:
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        如果<span class="hljs-keyword">switch</span>中的变量或者值和当前<span class="hljs-keyword">case</span>后面的值相等，则执行这些操作;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">break</span>; <span class="hljs-comment">//=&gt;每一种case情况结束都需要加break，达到条件成立处理完成，跳出当前判断</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    default:
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        以上值都不满足，执行这里的操作，最后一个就不需要加<span class="hljs-keyword">break</span>  
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>}
+</div></code></pre>
+
+<p>案例剖析</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// if (num == 0) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//     num++;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// } else if (num == 5) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//     num--;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// } else if (num == 10) {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//     num = num * num;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">// } else {</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//     num = 0;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">// }</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-keyword">switch</span> (num) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>        num++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>        num--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>        num *= num;
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>    <span class="hljs-keyword">default</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        num = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span><span class="hljs-built_in">console</span>.log(num);
+</div></code></pre>
+
+<blockquote>
+  <p>在switch case中我们可以利用case后面不加break的特点（不管后面条件是否成立都会继续执行，直到遇到break为止），实现当变量等于某几个值的时候，我们做相同的事情</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> num = <span class="hljs-number">5</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">switch</span> (num) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        num++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        num *= num; <span class="hljs-comment">//=&gt;只要当前的NUM等于5或者等10都去做同样的事情</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-keyword">default</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        num = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-built_in">console</span>.log(num);
+</div></code></pre>
+
+<blockquote>
+  <p>每一种case情况的比较都是使用<code>===</code>进行比较的：绝对相等</p>
+  
+  <p><code>=</code>：赋值，变量<code>=</code>值 <br>
+  <code>==</code>：比较，值<code>==</code>值 <br>
+  <code>===</code>：绝对比较，值<code>===</code></p>
+  
+  <p>如果左右两边比较的值是相同类型的，那么直接比较内容是否一样即可；如果两边值的类型不一样，<code>==</code>和<code>===</code>是有区别的： <br>
+  <code>===</code>类型不一样，最后的结果就是false，更加的严谨 <br>
+  <code>==</code>类型不一样，浏览器首先会默认的把类型转化为一样的，然后再比较内容，相对松散一些</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-string">'10'</span>==<span class="hljs-number">10</span>：<span class="hljs-literal">true</span>  浏览器会把<span class="hljs-string">'10'</span>-&gt;<span class="hljs-number">10</span>然后再比较
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-string">'10'</span>===<span class="hljs-number">10</span>：<span class="hljs-literal">false</span>
+</div></code></pre>
+
+<blockquote>
+  <p>数学运算中的一些细节知识点 <br>
+  在JS中<code>* / -</code>都是数学运算，遇到非数字操作，浏览器也会转换为数字进行操作；但是<code>+</code>不一定是数学运算，如果遇到了字符串，属于字符串的拼接</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-string">'10'</span>*<span class="hljs-number">10</span> =&gt;<span class="hljs-number">100</span>  浏览器会把字符串转为数字然后再运算（数学）
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-string">'10'</span>/<span class="hljs-number">10</span> =&gt;<span class="hljs-number">1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-string">'10'</span><span class="hljs-number">-10</span> =&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-string">'10'</span>+<span class="hljs-number">10</span> =&gt;<span class="hljs-string">'1010'</span>  字符串拼接
+</div></code></pre>
+
+<p>腾讯面试题</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> result=<span class="hljs-number">10</span>+<span class="hljs-literal">null</span>+[]+<span class="hljs-literal">undefined</span>+<span class="hljs-string">'zhufeng'</span>+<span class="hljs-literal">null</span>+[]+<span class="hljs-literal">undefined</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-built_in">console</span>.log(result); =&gt;<span class="hljs-string">'10undefinedzhufengnullundefined'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">/*
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> 10+null：数学运算,先把null变为数字0 -&gt;10
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> 10+[]：数学运算,先把[]变为数字,[].toString()变为'',10+'',变为字符串拼接 -&gt;'10'
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span> '10'+undefined：字符串拼接 -&gt;'10undefined'
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span> '10undefined'+'zhufeng'：字符串拼接 -&gt;'10undefinedzhufeng'
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> '10undefinedzhufeng'+null：字符串拼接 -&gt;'10undefinedzhufengnull'
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span> ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span> */
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> result = <span class="hljs-number">10</span>+<span class="hljs-literal">false</span>+<span class="hljs-literal">true</span>+<span class="hljs-literal">null</span>+<span class="hljs-literal">undefined</span>+<span class="hljs-literal">null</span>+<span class="hljs-string">'zhufeng'</span>+<span class="hljs-literal">null</span>+<span class="hljs-literal">true</span>+<span class="hljs-literal">undefined</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>=&gt;<span class="hljs-string">'NaNzhufengnulltrueundefined'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//-&gt;分析步骤</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-number">10</span>+<span class="hljs-literal">false</span> -&gt;<span class="hljs-number">10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-number">10</span>+<span class="hljs-literal">true</span> -&gt;<span class="hljs-number">11</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-number">11</span>+<span class="hljs-literal">null</span> -&gt;<span class="hljs-number">11</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-number">11</span>+<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-literal">NaN</span>+<span class="hljs-literal">null</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-literal">NaN</span>+<span class="hljs-string">'zhufeng'</span> -&gt;<span class="hljs-string">'NaNzhufeng'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-string">'NaNzhufeng'</span>+<span class="hljs-literal">null</span> -&gt;<span class="hljs-string">'NaNzhufengnull'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-string">'NaNzhufengnull'</span>+<span class="hljs-literal">true</span> -&gt;<span class="hljs-string">'NaNzhufengnulltrue'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-string">'NaNzhufengnulltrue'</span>+<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-string">'NaNzhufengnulltrueundefined'</span>
+</div></code></pre>
+
+
+
+<h3 id="js中的循环语句">JS中的循环语句</h3>
+
+<blockquote>
+  <p>重复做相同的事情就是循环：在真实项目中只要我们想重复做一件事件就要用到循环</p>
+  
+  <ul><li>for循环</li>
+  <li>for in 循环</li>
+  <li>while循环</li>
+  <li>do while循环</li>
+  <li>…</li>
+  </ul>
+</blockquote>
+
+<p><strong><code>for循环</code></strong></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(设置初始值;设置循环执行的条件;步长累加){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//-&gt;条件成立，执行循环体中的内容(循环体中存放的就是我们需要重复处理的事情)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>第一步：设置初始值
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>第二步：验证(设置)循环能够执行的条件
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>第三步：条件成立，执行循环体中的内容，不成立直接结束循环
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>第四步：每一次执行完成循环体中内容，为了能够执行下一次的循环，做一下步长的累加
+</div></code></pre>
+
+<p>案例剖析</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(i);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//=&gt;上述代码是死循环：i永远是0，条件永远成立，循环会一直执行下去</span>
+</div></code></pre>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//-&gt; 0 1 2 3 4</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//-&gt;循环结束执行这个操作 =&gt;5</span>
+</div></code></pre>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i+=<span class="hljs-number">3</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//=&gt; 0 3</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//=&gt; 6</span>
+</div></code></pre>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">5</span>;i+=<span class="hljs-number">2</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    i&lt;<span class="hljs-number">3</span>?i++:i--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//=&gt;2 3 4</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//=&gt;6</span>
+</div></code></pre>
+
+<blockquote>
+  <p>在循环的循环体中经常会出现两个关键词： <br>
+  continue：结束当前本轮循环，继续执行下一轮循环 <br>
+  break：结束整个循环</p>
+  
+  <p>所谓结束本轮循环：其实就是让循环体中continue后面的代码不在执行，直接的去进行步长累加，开启下一轮的循环 <br>
+  所谓结束整个循环：其实就是当循环体中遇到break，break后面的操作语句都不在执行，步长累加也不再执行，所有和循环有关的都结束了</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">continue</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    i+=<span class="hljs-number">2</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//=&gt;5</span>
+</div></code></pre>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    i+=<span class="hljs-number">2</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//=&gt;0</span>
+</div></code></pre>
+
+<p>腾讯面试题</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i+=<span class="hljs-number">2</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">if</span>(i&lt;=<span class="hljs-number">5</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        i++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">continue</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        i--;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    <span class="hljs-built_in">console</span>.log(i);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//=&gt;5</span>
+</div></code></pre>
+
+<h3 id="实战案例">实战案例</h3></div></body></html>

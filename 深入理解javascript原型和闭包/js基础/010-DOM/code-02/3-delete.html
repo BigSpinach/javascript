@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        .box {
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<!--div.box#box${$}*2 [TAB]-->
+<div class="box" id="box1">1</div>
+<div class="box" id="box2">2</div>
+
+<script>
+    var box1 = document.getElementById('box1'),
+            box2 = document.getElementById('box2');
+
+    //=>box1.parentNode.removeChild(box1)
+
+    /*var box3=box2.cloneNode();
+     document.body.appendChild(box3);
+
+     var box4=box2.cloneNode(true);
+     document.body.appendChild(box4);*/
+
+    //    box2.onclick = function () {
+    //        alert(2);
+    //    };
+</script>
+</body>
+</html>

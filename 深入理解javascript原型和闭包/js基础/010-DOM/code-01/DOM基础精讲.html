@@ -1,0 +1,170 @@
+<!DOCTYPE html><html><head><title>DOM基础精讲</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h2 id="dom基础精讲">DOM基础精讲</h2>
+
+<blockquote>
+  <p>DOM：document object model 文档对象模型，提供一些属性和方法可以让我们去操作DOM元素</p>
+</blockquote>
+
+
+
+<h3 id="获取dom元素的方法">获取DOM元素的方法</h3>
+
+<ul><li>document.getElementById 一个元素对象</li>
+<li>[context].getElementsByTagName 元素集合</li>
+<li>[context].getElementsByClassName 元素集合</li>
+<li>document.getElementsByName 节点集合</li>
+<li>document.documentElement 获取整个HTML对象</li>
+<li>document.body 获取整个BODY对象</li>
+<li>document.head 获取整个HEAD对象</li>
+<li>[context].querySelector 一个元素对象</li>
+<li>[context].querySelectorAll 获取元素集合</li>
+<li>…</li>
+</ul>
+
+<p><code>getElementById</code></p>
+
+<blockquote>
+  <p>此方法的上下文只能是document <br>
+  一个HTML页面中元素的ID理论上是不能重复的</p>
+  
+  <p>1、如果页面中的ID重复了，我们获取的结果是第一个ID对应的元素对象</p>
+  
+  <p>2、在IE7及更低版本浏览器中，会把表单元素的name值当做id来识别使用（项目中尽量不要让表单的name和其它元素的id相同）</p>
+  
+  <p>3、如果我们把JS放在结构的下面，我们可以直接使用ID值来获取这个元素（不需要通过getElementById获取），而且这种方式会把页面中所有ID是他的元素都获取到（元素对象/元素集合）  =&gt;不推荐</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;获取页面中ID值为#box1的所有元素标签</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> allList = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'*'</span>),
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    result = [];
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; allList.length; i++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">var</span> item = allList[i];
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    item.id === <span class="hljs-string">'box1'</span> ? result.push(item) : <span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-built_in">console</span>.log(result);
+</div></code></pre>
+
+<p><code>getElementsByTagName</code></p>
+
+<blockquote>
+  <p>上下文是可以自己来指定 <br>
+  获取到的结果是一个元素集合（类数组集合）</p>
+  
+  <p>1、获取的结果是集合，哪怕集合中只有一项，我们想要操作这一项（元素对象），需要先从集合中获取出来，然后再操作</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>   ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>   <span class="hljs-keyword">var</span> bodyBox=<span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>   bodyBox.getElementsByTagName(<span class="hljs-string">'div'</span>);<span class="hljs-comment">//-&gt;Uncaught TypeError: bodyBox.getElementsByTagName is not a function 此时的bodyBox是一个类数组集合，我们需要使用的是其中的第一项，而不是整个集合</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    bodyBox[<span class="hljs-number">0</span>].getElementsByTagName(<span class="hljs-string">'div'</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<blockquote>
+  <p>2、在指定的上下文中，获取所有子子孙孙元素中标签名叫做这个的(后代筛选)</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">'box'</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    box.getElementsByTagName(<span class="hljs-string">'li'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>    box.getElementsByTagName(<span class="hljs-string">'div'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<p><code>getElementsByClassName</code></p>
+
+<blockquote>
+  <p>上下文也可以随意指定 <br>
+  获取的结果也是一个元素集合（类数组集合）</p>
+  
+  <p>1、真实项目中我们经常会通过样式类名来获取元素，getElementsByClassName这个方法在IE6~8浏览器中是不兼容的</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">byClass</span>(<span class="hljs-params">strClass, context</span>) </span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    context = context || <span class="hljs-built_in">document</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">if</span> (isHighVersion) <span class="hljs-keyword">return</span> [].slice.call(context.getElementsByClassName(strClass));
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    strClass = strClass.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>).split(<span class="hljs-regexp">/\s+/g</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> tagList = context.getElementsByTagName(<span class="hljs-string">'*'</span>),
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        result = [];
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; tagList.length; i++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">var</span> item = tagList[i],
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>            itemClass = item.className;
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        <span class="hljs-keyword">var</span> isMatch = <span class="hljs-literal">true</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = <span class="hljs-number">0</span>; k &lt; strClass.length; k++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>            <span class="hljs-keyword">var</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(^| +)'</span> + strClass[k] + <span class="hljs-string">'( +|$)'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>            <span class="hljs-keyword">if</span> (!reg.test(itemClass)) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>                isMatch = <span class="hljs-literal">false</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>                <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>        isMatch ? result.push(item) : <span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>    <span class="hljs-keyword">return</span> result;
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>}
+</div></code></pre>
+
+<p><code>getElementsByName</code></p>
+
+<blockquote>
+  <p>通过元素的NAME属性值获取一组元素（类数组：节点集合 NodeList） <br>
+  它的上下文也只能是document</p>
+  
+  <p>1、IE浏览器只能识别表单元素的name属性值，所以我们这个方法一般都是用来操作表单元素的</p>
+</blockquote>
+
+<p><code>document.documentElement / document.body</code></p>
+
+<blockquote>
+  <p>获取HTML或者BODY（一个元素对象）</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">document</span>.documentElement.clientWidth||<span class="hljs-built_in">document</span>.body.clientWidth <span class="hljs-comment">//=&gt;获取当前浏览器窗口可视区域的宽度（当前页面一屏幕的宽度）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;clientHeight是获取高度</span>
+</div></code></pre>
+
+<p><code>querySelector / querySelectorAll</code></p>
+
+<blockquote>
+  <p>在IE6~8下不兼容，而且也没什么特别好办法处理它的兼容，所以这两个方法一般多用于移动端开发使用</p>
+  
+  <p>querySelector：获取一个元素对象 <br>
+  querySelectorAll：获取的是一个元素集合</p>
+  
+  <p>只要是CSS支持的选择器，这里大部分都支持</p>
+</blockquote></div></body></html>

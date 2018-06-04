@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>数据类型转换(汇总)</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h3 id="数据类型转换汇总">数据类型转换(汇总)</h3>
+
+<p><code>把其它数据类型转换为number类型</code></p>
+
+<blockquote>
+  <p>isNaN、Number、parseInt、parseFloat <br>
+  在进行加减乘除数学运算的时候</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-literal">true</span> -&gt;<span class="hljs-number">1</span>    <span class="hljs-literal">false</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-string">''</span> -&gt;<span class="hljs-number">0</span>   <span class="hljs-string">'12'</span> -&gt;<span class="hljs-number">12</span>   <span class="hljs-string">'12px'</span> -&gt;<span class="hljs-literal">NaN</span>/<span class="hljs-number">12</span>  <span class="hljs-string">'珠峰'</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-literal">null</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>{} /^$/ <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}  -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>[] -&gt;<span class="hljs-string">''</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>[<span class="hljs-number">12</span>] -&gt;<span class="hljs-string">'12'</span> -&gt;<span class="hljs-number">12</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>[<span class="hljs-number">12</span>,<span class="hljs-number">23</span>] -&gt;<span class="hljs-string">'12,23'</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//=&gt;引用数据类型转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//通过toString方法把数组转化为字符串，然后再调用Number把字符串转换为数字</span>
+</div></code></pre>
+
+<p><code>JS中的数学运算</code></p>
+
+<blockquote>
+  <p>+、-、*、/  加减乘除 <br>
+  除了加法有特殊性，其余的运算符都是数学运算，也就是遇到非数字类型，需要把其转换为number再进行运算</p>
+  
+  <p>加法的的特殊性： <br>
+  在遇到字符串的时候，+不是数学运算，而是字符串拼接，只要不遇到字符串就是数学运算</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-number">1</span>-<span class="hljs-string">'1'</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-number">10</span>*<span class="hljs-literal">null</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-number">10</span>/<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-number">10</span>*[<span class="hljs-number">10</span>] -&gt;<span class="hljs-number">100</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-number">1</span>+<span class="hljs-string">'1'</span> -&gt;<span class="hljs-string">'11'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-literal">null</span>+<span class="hljs-string">'1'</span> -&gt;<span class="hljs-string">'null1'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//=&gt;字符串拼接：是把其它的值转换为字符串然后再拼接(toString)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;其它数据类型的toString是直接的把值用单(双)引号包起来即可，只有对象的有特殊性，对象.toString() === '[object Object]'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-number">1</span>+<span class="hljs-literal">null</span>+<span class="hljs-literal">true</span>+<span class="hljs-literal">undefined</span>+[]+<span class="hljs-string">'珠峰'</span>+<span class="hljs-literal">null</span>+<span class="hljs-literal">undefined</span>+[]+<span class="hljs-number">10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-comment">/*
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">13.</span> * 1+null -&gt;1
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span> * 1+true -&gt;2
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span> * 2+undefined -&gt;NaN
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span> * NaN+[] -&gt;NaN+'' -&gt;'NaN'
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span> * 'NaN'+'珠峰' -&gt;'NaN珠峰'
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span> * ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span> * 'NaN珠峰nullundefined10'
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>*/
+</div></code></pre>
+
+<p><code>将其它数据类型转换为布尔类型</code></p>
+
+<blockquote>
+  <p>Boolean、!、!! <br>
+  在条件判断的时候，也是转换为布尔类型，然后验证条件的真假</p>
+  
+  <p>只有<code>0、NaN、空字符串、null、undefined</code>五个转换为false，其余的都是转换为true</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>[] -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-number">-1</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">if</span>(box){
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-comment">//=&gt;首先把box变量存储的值获取到，转化为布尔类型，如果为true条件成立，反之不成立</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">if</span>(<span class="hljs-number">3</span>+<span class="hljs-string">'3px'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-comment">//=&gt;条件成立：3+'3px'='33px'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">if</span>(<span class="hljs-number">3</span>-<span class="hljs-string">'3px'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    <span class="hljs-comment">//=&gt;条件不成立：3-'3px'=NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>}
+</div></code></pre>
+
+<p><code>在使用==进行比较的时候</code></p>
+
+<blockquote>
+  <p>在使用==进行比较的时候，如果左右两边数据类型不相同，浏览器会默认转换为相同的类型，然后再比较（<code>===</code>不会这样操作）</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;对象和对象：比较的是空间地址，不是相同的空间，结果肯定是false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>[]==[]  -&gt;<span class="hljs-literal">false</span>  
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> a={};
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> b=a;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>a==b -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//=&gt;对象和数字：把对象转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>[]==<span class="hljs-number">0</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>({})==<span class="hljs-literal">NaN</span> -&gt;<span class="hljs-literal">false</span>  <span class="hljs-literal">NaN</span>和自己不相等和其它任何值都不相等
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//=&gt;对象和字符串：把两边都转换为数字比较的</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>[]==<span class="hljs-string">''</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span><span class="hljs-comment">//=&gt;对象和布尔：把两边都转换数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>[]==<span class="hljs-literal">true</span> -&gt;<span class="hljs-number">0</span>==<span class="hljs-number">1</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>[]==<span class="hljs-literal">false</span> -&gt;<span class="hljs-number">0</span>==<span class="hljs-number">0</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>![]==<span class="hljs-literal">false</span> -&gt;![] 把数组变为布尔在取反=<span class="hljs-literal">false</span>  -&gt;<span class="hljs-literal">false</span>==<span class="hljs-literal">false</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span><span class="hljs-comment">//=&gt;字符串和数字：字符串转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span><span class="hljs-comment">//=&gt;字符串和布尔：都转为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span><span class="hljs-comment">//=&gt;布尔和数字：布尔转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span><span class="hljs-comment">//=&gt;规律：两个等于号比较，左右两边数据值的类型不一样，浏览器会把两边的类型都转换为数字然后再比较，但是null和undefined除外</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span><span class="hljs-literal">null</span>==<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span><span class="hljs-literal">null</span>===<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span><span class="hljs-literal">null</span>==<span class="hljs-number">0</span>  -&gt;<span class="hljs-literal">false</span>  <span class="hljs-literal">null</span>以及<span class="hljs-literal">undefined</span>和其它任何值都不相等
+</div></code></pre></div></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<script>
+
+    //=>for in：用来遍历(循环)对象键值对的
+
+    var obj = {name: '珠峰培训', age: 8, 1: '耿老师', 3: '张仁阳', 2: '周啸天', 2.5: '哈哈'};
+
+    //=>var key;  var attr(attribute);
+    //=>对象中有多少组键值对,我们的FOR IN循环就遍历多少次（不一定）
+    //=>每一次循环KEY这个变量存储的都是当前循环这组键值对的属性名
+    //1、KEY存储的值都是字符串格式的(不管属性名是否为数字)
+    //2、在FOR IN循环遍历的时候，大部分浏览器都是先把对象中的键值对进行排序（把数字属性名的排在前面，并且排列的时候按照数字由小到大排列），其次在把非数字的属性名按照之前编写的顺序排列，循环的时候按照重新排列的顺序依次遍历 （小数算作字母不算做数字）
+    //    for (var key in obj) {
+    //        //console.log(typeof key);//->"string"
+    //        //key -> 属性名   'name'/'age'...
+    //
+    //        //console.log(obj.key);//->获取obj中key这个属性对应的属性值 ->undefined    <=>  obj['key']
+    //        console.log(obj[key]);//->每一次循环把KEY变量存储的值(当前遍历的属性名)获取到放在中括号中,获取OBJ中对应属性的属性值
+    //    }
+
+    //'key':字符串KEY
+    //key:变量KEY,代表的是存储的值
+
+    //obj['key']  obj.key：属性名是KEY
+    //obj[key]：属性名不是KEY而是KEY变量存储的值
+
+
+    //=>itar [TAB]
+    //    for (var i = 0; i < array.length; i++) {
+    //        var obj = array[i];
+    //
+    //    }
+
+    //=>itin [TAB]
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+
+        }
+    }
+</script>
+</body>
+</html>
