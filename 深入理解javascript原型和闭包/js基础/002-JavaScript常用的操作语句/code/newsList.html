@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>隔3行变色，css3选择器实现的效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;
+            font-size: 14px;
+            color: #555;
+        }
+
+        a, a:hover, a:active {
+            color: #555;
+            text-decoration: none;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #hotNews {
+            margin: 20px auto;
+            padding: 20px;
+            width: 300px;
+            border: 1px dashed #999;
+        }
+
+        #hotNews li {
+            height: 35px;
+            line-height: 35px;
+
+            text-overflow: ellipsis; /*超出一行的部分裁切,以省略号代替*/
+            white-space: nowrap; /*强制不换行*/
+            overflow: hidden; /*溢出隐藏*/
+        }
+
+        /*CSS3中提供的结构伪类选择器：nth-child / nth-last-child / nth-of-type / nth-last-of-type ...*/
+        /*#hotNews li:nth-child(even) {!*所有LI中的偶数行 odd：奇数行*!
+            background: #EEE;
+        }*/
+
+        #hotNews li:nth-child(3n+1) {
+            background: lightblue;
+        }
+
+        #hotNews li:nth-child(3n+2) {
+            background: lightcyan;
+        }
+
+        #hotNews li:nth-child(3n) {
+            background: lightgoldenrodyellow;
+        }
+
+        #hotNews li:hover {
+            background: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+<!--ul>li*10>a[href='#'] [TAB]-->
+<ul id="hotNews">
+    <li><a href="#">始终同人民想在一起、干在一起</a></li>
+    <li><a href="#">《不忘初心 继续前进》第七集</a></li>
+    <li><a href="#">砥砺奋进成就展观众畅谈变化</a></li>
+    <li><a href="#">中国已成为促进世界和平的中坚力量</a></li>
+    <li><a href="#">17省市提高最低工资,这四地超过2000元</a></li>
+    <li><a href="#">人保养老和万科拿到雄安入场券,48家企业落户新区</a></li>
+    <li><a href="#">北京体育代表团召开第十三届全国运动会总结大会</a></li>
+    <li><a href="#">人民日报：汉语热风靡全球,体现外界对中国看好</a></li>
+    <li><a href="#">中国内地建“老赖”曝光系统,年底前完成曝光数据库</a></li>
+    <li><a href="#">中国公立医院综合改革全面推开：取消药品加成</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html><html><head><title>DOM基础精讲</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h2 id="dom基础精讲">DOM基础精讲</h2>
+
+<p></p>
+
+<blockquote>
+  <p>DOM：document object model 文档对象模型，提供一些属性和方法可以让我们去操作DOM元素</p>
+</blockquote>
+
+
+
+<h3 id="获取dom元素的方法">获取DOM元素的方法</h3>
+
+<ul><li>document.getElementById 一个元素对象</li>
+<li>[context].getElementsByTagName 元素集合</li>
+<li>[context].getElementsByClassName 元素集合</li>
+<li>document.getElementsByName 节点集合</li>
+<li>document.documentElement 获取整个HTML对象</li>
+<li>document.body 获取整个BODY对象</li>
+<li>document.head 获取整个HEAD对象</li>
+<li>[context].querySelector 一个元素对象</li>
+<li>[context].querySelectorAll 获取元素集合</li>
+<li>…</li>
+</ul>
+
+<p><code>getElementById</code></p>
+
+<blockquote>
+  <p>此方法的上下文只能是document <br>
+  一个HTML页面中元素的ID理论上是不能重复的</p>
+  
+  <p>1、如果页面中的ID重复了，我们获取的结果是第一个ID对应的元素对象</p>
+  
+  <p>2、在IE7及更低版本浏览器中，会把表单元素的name值当做id来识别使用（项目中尽量不要让表单的name和其它元素的id相同）</p>
+  
+  <p>3、如果我们把JS放在结构的下面，我们可以直接使用ID值来获取这个元素（不需要通过getElementById获取），而且这种方式会把页面中所有ID是他的元素都获取到（元素对象/元素集合）  =&gt;不推荐</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;获取页面中ID值为#box1的所有元素标签</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> allList = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'*'</span>),
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    result = [];
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; allList.length; i++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">var</span> item = allList[i];
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    item.id === <span class="hljs-string">'box1'</span> ? result.push(item) : <span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-built_in">console</span>.log(result);
+</div></code></pre>
+
+<p><code>getElementsByTagName</code></p>
+
+<blockquote>
+  <p>上下文是可以自己来指定 <br>
+  获取到的结果是一个元素集合（类数组集合）</p>
+  
+  <p>1、获取的结果是集合，哪怕集合中只有一项，我们想要操作这一项（元素对象），需要先从集合中获取出来，然后再操作</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>   ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>   <span class="hljs-keyword">var</span> bodyBox=<span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>   bodyBox.getElementsByTagName(<span class="hljs-string">'div'</span>);<span class="hljs-comment">//-&gt;Uncaught TypeError: bodyBox.getElementsByTagName is not a function 此时的bodyBox是一个类数组集合，我们需要使用的是其中的第一项，而不是整个集合</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    bodyBox[<span class="hljs-number">0</span>].getElementsByTagName(<span class="hljs-string">'div'</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<blockquote>
+  <p>2、在指定的上下文中，获取所有子子孙孙元素中标签名叫做这个的(后代筛选)</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">'box'</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    box.getElementsByTagName(<span class="hljs-string">'li'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>    box.getElementsByTagName(<span class="hljs-string">'div'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<p><code>getElementsByClassName</code></p>
+
+<blockquote>
+  <p>上下文也可以随意指定 <br>
+  获取的结果也是一个元素集合（类数组集合）</p>
+  
+  <p>1、真实项目中我们经常会通过样式类名来获取元素，getElementsByClassName这个方法在IE6~8浏览器中是不兼容的</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">byClass</span>(<span class="hljs-params">strClass, context</span>) </span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    context = context || <span class="hljs-built_in">document</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">if</span> (isHighVersion) <span class="hljs-keyword">return</span> [].slice.call(context.getElementsByClassName(strClass));
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    strClass = strClass.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>).split(<span class="hljs-regexp">/\s+/g</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> tagList = context.getElementsByTagName(<span class="hljs-string">'*'</span>),
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        result = [];
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; tagList.length; i++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">var</span> item = tagList[i],
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>            itemClass = item.className;
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        <span class="hljs-keyword">var</span> isMatch = <span class="hljs-literal">true</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = <span class="hljs-number">0</span>; k &lt; strClass.length; k++) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>            <span class="hljs-keyword">var</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'(^| +)'</span> + strClass[k] + <span class="hljs-string">'( +|$)'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>            <span class="hljs-keyword">if</span> (!reg.test(itemClass)) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>                isMatch = <span class="hljs-literal">false</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>                <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>        isMatch ? result.push(item) : <span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>    <span class="hljs-keyword">return</span> result;
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>}
+</div></code></pre>
+
+<p><code>getElementsByName</code></p>
+
+<blockquote>
+  <p>通过元素的NAME属性值获取一组元素（类数组：节点集合 NodeList） <br>
+  它的上下文也只能是document</p>
+  
+  <p>1、IE浏览器只能识别表单元素的name属性值，所以我们这个方法一般都是用来操作表单元素的</p>
+</blockquote>
+
+<p><code>document.documentElement / document.body</code></p>
+
+<blockquote>
+  <p>获取HTML或者BODY（一个元素对象）</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">document</span>.documentElement.clientWidth||<span class="hljs-built_in">document</span>.body.clientWidth <span class="hljs-comment">//=&gt;获取当前浏览器窗口可视区域的宽度（当前页面一屏幕的宽度）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;clientHeight是获取高度</span>
+</div></code></pre>
+
+<p><code>querySelector / querySelectorAll</code></p>
+
+<blockquote>
+  <p>在IE6~8下不兼容，而且也没什么特别好办法处理它的兼容，所以这两个方法一般多用于移动端开发使用</p>
+  
+  <p>querySelector：获取一个元素对象 <br>
+  querySelectorAll：获取的是一个元素集合</p>
+  
+  <p>只要是CSS支持的选择器，这里大部分都支持</p>
+</blockquote>
+
+<h3 id="dom的节点">DOM的节点</h3>
+
+<blockquote>
+  <p>node：节点，浏览器认为在一个HTML页面中的所有内容都是节点（包括标签、注释、文字文本等）</p>
+  
+  <ul><li>元素节点：HTML标签</li>
+  <li>文本节点：文字内容（高版本浏览器会把空格和换行也当做文本节点）</li>
+  <li>注释节点：注释内容</li>
+  <li>document文档节点</li>
+  <li>…</li>
+  </ul>
+</blockquote>
+
+<p><code>元素节点</code> <br>
+nodeType：1 <br>
+nodeName：大写标签名(在部分浏览器的怪异模式下,我们写的标签名是小写,它获取的就是小写…) <br>
+nodeValue：null</p>
+
+<p>[curEle].tagName：获取当前元素的标签名（获取的标签名一般都是大写）</p>
+
+<p><code>文本节点</code> <br>
+nodeType：3 <br>
+nodeName：#text <br>
+nodeValue：文本内容</p>
+
+<p><code>注释节点</code> <br>
+nodeType：8 <br>
+nodeName：#comment <br>
+nodeValue：注释内容</p>
+
+<p><code>文档节点</code> <br>
+nodeType：9 <br>
+nodeName：#document <br>
+nodeValue：null</p>
+
+<blockquote>
+  <p>节点是用来描述页面中每一部分之间关系的，只要我可以获取页面中的一个节点，那么我就可以通过相关的属性和方法获取页面中所有的节点</p>
+</blockquote>
+
+<p><img longdesc="./1508639169786.png" alt="Alt text" title="" type="image/png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA/8AAAHYCAYAAAAbNFjxAAAgAElEQVR4Ae3dvXLaWtgw7Jtv9hE8/dvZu9izjwAfgZ0mVdp0uDRNupTp0pjSdLtNlSb2EYT2azIpYma+4unfU+AbAZKWZLABY5DElZmMQT/r51oO4ZbWutX7+f/+f7PwhwABAgQIECBAgAABAgQIEOisQG82mwn+Ozu8OkaAAAECBAgQIECAAAECBCL+HwgECBAgQIAAAQIECBAgQIBAtwUE/90eX70jQIAAAQIECBAgQIAAAQLu/PsdIECAAAECBAgQIECAAAECXRdw57/rI6x/BAgQIECAAAECBAgQIHDyAoL/k/8VAECAAAECBAgQIECAAAECXRcQ/Hd9hPWPAAECBAgQIECAAAECBE5e4K+TFwBAgACBlgr83/9z3tKWa/apCPzP/z6eSlf1kwABAgQINF5A8N/4IdJAAgQIrBcQXK23see4Ai5OHddf7QQIECBAoC5g2n9dxHsCBAgQIECAAAECBAgQINAxAcF/xwZUdwgQIECAAAECBAgQIECAQF1A8F8X8Z4AAQIECBAgQIAAAQIECHRMQPDfsQHVHQIECBBogMDDdfSuH540ZDq6iN7FKKZP9iw3ZOf1etHrXcfTs7NjHuJ6vr8XF6OylHm58+0XkWxeV4vtBAgQIECAwAkKCP5PcNB1mQABAhsLFMFoL1bEshsX89yBZeBaDWifO6fR+zKzq3HE+Koa6D9cx/lwEjEZxsctIvSH6+xiwHM20/jxbbIkmcTwfHH84iLC4nU+dql1un/+en5RYhqji6fn58emFxwaPQYaR4AAAQIECDwREPw/IbGBAAECBHKBh+/j/GWMvzxzx7o4you4vIv7wdIhDfST7ZNvP4q7/3lAvnNg/fA1smsK/hAgQIAAAQIEnhMQ/D+nYx8BAgROXODyfR7FRgw+38TZiXts2v3Lu9n8AsDgfhb/xcflVP5eZBMC5n8mwzhfTu//sWmhK4+bxujLotCsrll+1aF/G4+zWcyWf+8uaycn+x9v+7Wdi7f928fl+Y+x5pCV59lIgAABAgQINFPgr2Y2S6sIECBAoBECl3cxm901oilta0R2ASCLuad/3rDlxV3/Qby/jHi4Xl5dyC4uXEQ8/lxzwWZ+8WH4bMMmw/PoPX/Is+fbSYAAAQIECDRLwJ3/Zo2H1hAgQIBABwSydfr5Ovuzm5/FHfjFnfjyTvrg/i7e7dzfH3G9nErQv/00v9CQXXAo7uTPLwBYqrEzrxMJECBAgEDHBAT/HRtQ3SFAgEAukGeFf5I5fjqKi2XG+Oq+NNnbItt8vh49S/iWrknPk9Bl2+dBbqXM6rF5e7Kf6XnFuekBK16nbcgTz1Uz6ZcZ8Kv9yW67b97XFVUvNyUuz2Xqz48eXcyn94+vEocsCWBx7mP8nq/R78c/5+trfWnPZDiM5YT/+HxTLsjILjZks//n0/Zrd/6fXojIlwY8xm1kSxHOYxj5koH7yBd9zJcUzGbxM6nnpfbZT4AAAQIECDRLQPDfrPHQGgIECOxNoFyuP47vyXPjpj++RZkf7lf8KZ4YlwelETF4P7+TvFljHuL6fJiUmSW0Py/ufC/KWAToxZr3ZcHjq4v4+ntdLYtz5hny64dkmfR7+WPtLuNN+zr9EWUy/W/xo/CqN2rx/uzmv2KN/GT4MUYPo7jIOj4ZxtdsHKZ/4tfqU1duze7mZzMG6oF3Ftxnd/nzu/7pydk59ePT/c++/vfvZW6H8/hnmQ5gnP4CPXuynQQIECBAgEBTBQT/TR0Z7SJAgMArBdJkfb/KCD8eF7edl6VP4lsezSZB6SBbQL7hn/HV1fIOdPWE9OkAD9erj4mYxHhcXopIS1h/Tn7UJIYfF9Pa37SvZ+/iQ54Tr/8h3pU32fOG1H6exc3PbGp/P24ff8bN5U18Xt5Cn5s8/l5eKPk3/n6xrKzoZOZBr3TMLrBkF0bma/OLmRzpY/oWszfyxq2cQVGcd14+MWB+YSUrZ9W2ZDZDXrCfBAgQIECAQCsEBP+tGCaNJECAwA4Cl++Ladvlo+UeYvH0vn70lwHt5PfjvPByRsAiedzGNb6YOT6vc1ni4D5ZA19OLa/WVz0nn3Y+XzP/eBt5LB6T5Z34N+1rFswvp8fXptFX25y+y875Gfks+ctPyzZPvsXX78v7/lvNrkjL9poAAQIECBAgsL2A4H97M2cQIECgJQLJdPg8SM7v7vc/xOf8dvb4e2Sz0YsZAVsGpekjAM/efSgD81wpr3P+fhD3lefOXcanVc+RS88Z3EfllLPyTno2c2Bx7eIwfc279PLPxZKFPOlfFG0uZzr0d1nwX7lwkq/Xr/4sEv7VGrl2vX9+MWV+EWeZjDC5oJM/LjD/ufNyglp7vCVAgAABAgQOKyD4P6y32ggQIHBQgXI6/CJIzu/u9z+8i8u//122JVv3P40/yxvSOwWlB+3V6soa1dflxYss6V9+AaC4+z9vfj8+vLx+YHVHi61JosO8kmLfyy+KZQBZvoYs2J/PalguWZgn/8um/ud5FV4uzxEECBAgQIBAswUE/80eH60jQIDA6wSS6fDj76P4Mc9ctww8i33Zuv8fRQb61welzzV5HF9GSca86Sg+Dlev+S9KGV8VAfR823QUX5aPs49IMuYX/Yk4el+Ldf3JEori7n9EbJQ7oBBY/SKZHbFJjoYi2F+u818kUhzE/WwWs8pyhuUyh/mMgEkMz9M8Atb8rx4MWwkQIECAQPMFBP/NHyMtJECAwCsEkunwv74tstYXgWe5b/Lt2yIDfbHvFVXWT00T5sXiSQDFI/tqTwkoTk0D5YjI7qCvPGfwuVhXH1H2J/ba1yThXvG4vqKlK19My2kUUTzNL71okWf+X3n2ZhvzWRzZ0ekMg3VnnxUzPdIjxnGVJ/2b9y3p65qx+XezLIVpJV4TIECAAAECDRAQ/DdgEDSBAAECbylwnj+vbTJZZJkvHuUWUd+XLQfYKAH9Vg0+i5s83f2T8wZxu2rNf0Rc3q1LBpgXUs8f8LQ/sY++bvmov6x1Rf6Eov5pjD5WH4eYPw0hX4u/fi19knAwT37wzIyJvLzZ7C7iuhe9fEnA5d380YC53i4/s8cL5k3Y5XznECBAgAABAscTEPwfz17NBAgQOIhAPQlfOkW8vu/N7upe3sVsVgvm50nl7uLdWoXLuJvN4n75mLz0sCwIzYLb+gMJ6/3ZS1/TmQsbzYx4mj9hOvpYPEpvcJtn/h/G1yzT4pZ/HrKAfs1d+WpRy3Zkj+7LLwDkB6SJA1cBR0T6hIU1h+Sl+UmAAAECBAi0QKA3y9L3+kOAAAECrRP4v//nPP7nfxeP6Wtd47vc4OkoLpbBeRZA38V19K6WSQrmifXexY+L88XFgCLR3gIkW5dfrsW/i8uH5NwVZtmFhF/DxYyC7IJIdfZAlhDwKrKa831l+SsKq7dt5SH1OlYctNzk93O9jT0ECBAgQOAYAu78H0NdnQQIECDQXYFKsr9pjIrshIO4zzPqZ8sg8sA/C/ArSfiyaP2fea6ALDVif6XUIlHf3c27yJ/YOBmeF+UsylsE/lkJb5vEcWUDbSRAgAABAgQaJiD4b9iAaA4BAgQItFtgev5psVRhHsAv1uvfD/px+5gsU8iWQeQZ9pOnFCx63o/b/27muRfOLu8iTZewWO4wS5Y8nMXNf8tlBGvY+rf/JUkRlweZ9r9Gy2YCBAgQINBdAdP+uzu2ekaAQMcFTKvu+AC3vHt+P1s+gJpPgAABAp0TcOe/c0OqQwQIECBAgAABAgQIECBAoCog+K96eEeAAAECBAgQIECAAAECBDonIPjv3JDqEAECBAgQIECAAAECBAgQqAoI/qse3hEgQIBACwSybPb+ECBAgAABAgQIbC4g4d/mVo4kQIBAowSyhGr+EGiywP/872OTm6dtBAgQIEDgpAQE/yc13DpLgACBbghkd/5ns1k3OqMXBAgQIECAAIEDCJj2fwBkVRAgQIAAAQIECBAgQIAAgWMKCP6Pqa9uAgQIECBAgAABAgQIECBwAAHB/wGQVUGAAAECBAgQIECAAAECBI4pIPg/pr66CRAgQIAAAQIECBAgQIDAAQQE/wdAVgUBAgQIECBAgAABAgQIEDimgOD/mPrqJkCAAAECBAgQIECAAAECBxAQ/B8AWRUECBAgQIAAAQIECBAgQOCYAoL/Y+qrmwABAgQIECBAgAABAgQIHEBA8H8AZFUQIECAAAECBAgQIECAAIFjCgj+j6mvbgIECBAgQIAAAQIECBAgcAABwf8BkFVBgAABAgQIECBAgAABAgSOKSD4P6a+ugkQIECAAAECBAgQIECAwAEEBP8HQFYFAQIECBAgQIAAAQIECBA4poDg/5j66iZAgAABAgQIECBAgAABAgcQEPwfAFkVBAgQIECAAAECBAgQIEDgmAKC/2Pqq5sAAQIECBAgQIAAAQIECBxAQPB/AGRVECBAgAABAgQIECBAgACBYwoI/o+pr24CBAgQIECAAAECBAgQIHAAAcH/AZBVQYAAAQIECBAgQIAAAQIEjikg+D+mvroJECBAgAABAgQIECBAgMABBAT/B0BWBQECBAgQIECAAAECBAgQOKaA4P+Y+uomQIAAAQIECBAgQIAAAQIHEBD8HwBZFQQIECBAgAABAgQIECBA4JgCgv9j6qubAAECBAgQIECAAAECBAgcQEDwfwBkVRAgQIAAAQIECBAgQIAAgWMKCP6Pqa9uAgQIECBAgAABAgQIECBwAAHB/wGQVUGAAAECBAgQIECAAAECBI4pIPg/pr66CRAgQIAAAQIECBAgQIDAAQQE/wdAVgUBAgQIECBAgAABAgQIEDimgOD/mPrqJkCAAAECBAgQIECAAAECBxAQ/B8AWRUECBAgQIAAAQIECBAgQOCYAoL/Y+qrmwABAgQIECBAgAABAgQIHEBA8H8AZFUQIECAAAECBAgQIECAAIFjCgj+j6mvbgIECBAgQIAAAQIECBAgcAABwf8BkFVBgAABAgQIECBAgAABAgSOKSD4P6a+ugkQIECAAAECBAgQIECAwAEEBP8HQFYFAQIECOxXYDab7bdApREgQIAAAQIEOi4g+O/4AOseAQIECBAgQIAAAQIECBAQ/PsdIECAAAECBAgQIECAAAECHRcQ/Hd8gHWPAAECBAgQIECAAAECBAgI/v0OECBAgAABAgQIECBAgACBjgsI/js+wLpHgAABAgQIECBAgAABAgQE/34HCBAgQIAAAQIECBAgQIBAxwUE/x0fYN0jQIAAAQIECBAgQIAAAQKCf78DBAgQIECAAAECBAgQIECg4wKC/44PsO4RIECAAAECBAgQIECAAAHBv98BAgQIECBAgAABAgQIECDQcQHBf8cHWPcIECBAoMMC01Fc9HrR6/XiYjTdvKMP1/Nzer3reFhz1sP1otzexSi2KHlNaTYTIECAAAECxxYQ/B97BNRPgACBAwtMRxfLwG/LgPHA7VTdBgKPv2OyPGzy7YcgfQMyhxAgQIAAgVMVEPyf6sjrNwECBAi0X+DyU9z2l92YfIsfr7hFP78o9MJd/mw2wFYzDNovrAcECBAgQKAzAoL/zgyljhAgQIDAMQQW0+MvYptZ99u0M52pkU3vr/49j2F+6z8mMTyv7y/fPxu0P1zHeVbQZBgf13VkOoov4+yQ8+hdr1sssE3PHEuAAAECBAgcUkDwf0htdREgQIBAhwSmMbroxdW4PV0q1vEXjR7HVXZB4SpiMFj0YzL8uOJCxjRGH4fLJQaDuL+7bE+ntZQAAQIECBCYCwj+/SIQIECAAIEGC5zd/IzZbLb4e7+M0COif/tYbs/3z2aRHFI55ufN2bO9fH93H4vSJzH8Wr2z/zj6WMwwGNzfhdD/WUo7CRAgQIBAIwUE/40cFo0iQIDAfgSKO73L6eKbzNZeOc38uROTjPPllPQ8i/zi7vhie21qfHpestY8bfNiqnpaRnXNeb2t65pZP67Xq7UlItJ65+Wk7atl01+Ut3rK/bPT6+fDmvQn6fdGI37+T5RL/Fcl+JvGn195Sf348K4a8F/eZRcRHss8ATGI+/mFgyygv4xPWQKBwX3M6nf23/23uKgwuI/6rrw2PwkQIECAAIFmCwj+mz0+WkeAAIEdBR7iuvd0Svr46iK+/l5X5OKc+drv+iHjq3gaMC+D2PN8Onh60q/484rkc2VJP+K6lwbZizXnWXCeBeD1to6velG9ALBoY/24WK6PXx+oP8R1rV/ZWvdq2WUrt3o1/RHf8nX62ybpO3sXH8ro/2mCv7Ts/oeoxf6LZqbH1Bo+n2WwIro/PzuL+YWDFftqRXhLgAABAgQINFRA8N/QgdEsAgQIvEbg4foqVi9Fn8R4nEee1RrWn5MfN4nhx/KZ79NkKnh+xL5/TobDlf0Yf7mIj2Wmu0q14+/llPWH6/LCQTlNvrzzPRl+Xfmc+/HVar/xl7L/lUq3eZMG8OsC9LXlncW7MvqPb7X0/g9fywsxg883Ub3vvyh0+uNb8XjAsppkNsJylkiRFmAyjPNKosF8Vkd5tlcECBAgQIBA8wUE/80fIy0kQIDAlgIP8T2N/LNp3MWa8Hxdd73I6jmD++Ua8+y8x9tiqnkUd6of4msafFfqmMXj7b/1CnZ8n09Ln8UsXcw+mcSkfxuPy36lu+LXn+Xz7pM+9W/jv2LN+1ncfM7Xzo8juVZQtjEp+7F4ll65e7EOv7yIENGP28eF2Utr6yPO4ubn0vfn6gC9rOnpq7Obz8u1+dksiOTixTIb//yM/m18WrkwvzZusUj4t5cZDU+bagsBAgQIECDQIAHBf4MGQ1MIECCwF4HpnyiWfWdruitTtZfruusVpefU13Wf3UQRK8ckfj9GRHp8FihX6og4u7mLItau17XF+/7tpzK53OX7IuidB9v/lYHz5fs8mE8KT9tYv3td3NaO+LVifUJ61/zs3Yfy4kdS/PFepmM4jqt55J5m4+/HbWKTtnM6+rJ6JsXVeXz7sDqBYH7haNVFkLRsrwkQIECAAIFmCwj+mz0+WkeAAAECuwo8/l4xvX3Xwpp1Xnr3P8ZXcXFRZuPv3/639sLL4+/Fko9+P08cMIj7bGZHZWZEs/qqNQQIECBAgMB+BAT/+3FUCgECBBoqMI4voyTz3nS0dq180YHxVTWxXTqdPPrxz3lEnP0dxcT+7K56bd74dHS94lnxk2SNenqnuqh5vy+SzPiRTOPP72TnP1+epr9Js5YzIjY5dC/HXMZdstZhMlnmcXghiD//Jwv6B/H5czF62TSN+PnzJh6ve1E+reHp66dJE/fSEYUQIECAAAECBxIQ/B8IWjUECBA4mECaUC4W2fGLoK6Wwb5oU2Vqf0SWNX/lOYPPy7vKl1GZaT9/GkB5zvkwX3hwFn8ncWaWMX9R7nkMo/+20+lTh8kwPqYXQbKOT0dxXd9WgGz/Ijdb/wSBvMwkud62j/rLi8h+Xn5KHtm33LGqn8k5Z9lgDN6XSymSfV4SIECAAAEC3RYQ/Hd7fPWOAIGTFEgT2tUBBnG7IoFddtTl3bpkgHkZ1fwBLx+/OG/levwsQd7nD3nBb/TzLG7+K5MVlhcelhcpzodJboRdmpBm3t/i/PRRe0UCxS3Ozw6djuKi9gjEvIR5P2szMfJ9cf4+7ldnAlw8yq9IDJkkfFxus+a/UPSCAAECBAi0UkDw38ph02gCBAi8IHB5F7NZLZifT32/i3drT72Mu9ksktnkxZGLx+Td1e4YL45fGRQWMwTmVxWqmfrnmfF/xk22fOCt/2RT2tf0aT79/ZVZCbOs/6u8nu1WOiNh60f9LWcNJDM48iczVMZhPhPj4unSi7PLuFz1/L9nG2wnAQIECBAg0AWB3ixb9OgPAQIECBAg0GCBLOg/j/TpitnFi/tZ7YJMNiMguTCw6NCK4x6uozd/4sFyX/F+E4IV5W1ymmMIECBAgACBowq4839UfpUTIECAAIHnBaaji+jVpvgv7vbXAv+smOVMh8osgBjHVa8XL+cieL4d9hIgQIAAAQLtFhD8t3v8tJ4AAQIEOi6QLS2YLdcW5FP87y6f7/T8nNksFhcB+nH7OItnn2owXybydJ1//kSE7Gf1gsLz9dtLgAABAgQINE/AtP/mjYkWESBAgAABAgQIECBAgACBvQq4879XToURIECAAAECBAgQIECAAIHmCQj+mzcmWkSAAAECBAgQIECAAAECBPYqIPjfK6fCCBAgQIAAAQIECBAgQIBA8wQE/80bEy0iQIAAAQIECBAgQIAAAQJ7FRD875VTYQQIECBAgAABAgQIECBAoHkCgv/mjYkWESBAgAABAgQIECBAgACBvQoI/vfKqTACBAgQeGuBXq/31lUonwABAgQIECDQOQHBf+eGVIcIECBAgAABAgQIECBAgEBVQPBf9fCOAAECBAgQIECAAAECBAh0TkDw37kh1SECBAgQIECAAAECBAgQIFAVEPxXPbwjQIAAAQIECBAgQIAAAQKdExD8d25IdYgAAQIECBAgQIAAAQIECFQFBP9VD+8IECBAgAABAgQIECBAgEDnBAT/nRtSHSJAgAABAgQIECBAgAABAlUBwX/VwzsCBAgQIECAAAECBAgQINA5AcF/54ZUhwgQIECAAAECBAgQIECAQFVA8F/18I4AAQIECBAgQIAAAQIECHROQPDfuSHVIQIECBAgQIAAAQIECBAgUBUQ/Fc9vCNAgAABAgQIECBAgAABAp0TEPx3bkh1iAABAgQIECBAgAABAgQIVAUE/1UP7wgQIECAAAECBAgQIECAQOcEBP+dG1IdIkCAAAECBAgQIECAAAECVQHBf9XDOwIECBAgQIAAAQIECBAg0DkBwX/nhlSHCBAgQIAAAQIECBAgQIBAVUDwX/XwjgABAgQIECBAgAABAgQIdE5A8N+5IdUhAgQIECBAgAABAgQIECBQFRD8Vz28I0CAAAECBAgQIECAAAECnRMQ/HduSHWIAAECBAgQIECAAAECBAhUBQT/VQ/vCBAgQIAAAQIECBAgQIBA5wQE/50bUh0iQIAAAQIECBAgQIAAAQJVAcF/1cM7AgQIECBAgAABAgQIECDQOQHBf+eGVIcIECBAgAABAgQIECBAgEBVQPBf9fCOAAECBAgQIECAAAECBAh0TkDw37kh1SECBAgQIECAAAECBAgQIFAVEPxXPbwjQIAAAQIECBAgQIAAAQKdExD8d25IdYgAAQIECBAgQIAAAQIECFQFBP9VD+8IECBAgAABAgQIECBAgEDnBAT/nRtSHSJAgEC3BWazWbc7qHcECBAgQIAAgTcQEPy/AaoiCRAgQIAAAQIECBAgQIBAkwQE/00aDW0hQIAAAQIECBAgQIAAAQJvICD4fwNURRIgQIAAAQIECBAgQIAAgSYJCP6bNBraQoAAAQIECBAgQIAAAQIE3kBA8P8GqIokQIAAAQIECBAgQIAAAQJNEhD8N2k0tIUAAQIECBAgQIAAAQIECLyBgOD/DVAVSYAAAQIECBAgQIAAAQIEmiQg+G/SaGgLAQIECBAgQIAAAQIECBB4AwHB/xugKpIAAQIECBAgQIAAAQIECDRJQPDfpNHQFgIECBAgQIAAAQIECBAg8AYCgv83QFUkAQIECBAgQIAAAQIECBBokoDgv0mjoS0ECBAgQIAAAQIECBAgQOANBAT/b4CqSAIECBCIeLjuRa+3+Hv90CyRtG0Xo2mzGqc1BAgQIECAAIE3EBD8vwGqIgkQIECAAAECBAgQIECAQJMEBP9NGg1tIUCAAIHljIGLcEPeLwMBAgQIECBAYH8Cgv/9WSqJAAECBF4lMI3RRS+uxq8qxMkECBAgQIAAAQIrBAT/K1BsIkCAAAECBAgQIECAAAECXRIQ/HdpNPWFAAECTRaYjuJimQAwSwSYJgGcji6i1zuP4STvwCSG54tkgXlCvqdJ+hYzBfKkgvlxWQmL8pqbcDDvpZ8ECBAgQIAAgUMJCP4PJa0eAgQInLLAn1FcnA+jiO0jYnxVvQCwHc+PuK5cLIiYDM/nFxSywP+8vIowL/Z1dW3XMkcTIECAAAECBJooIPhv4qhoEwECBDomMB5WA/+8e+Pvuz0DcDIcxqrUAOMvF/GxFvi/tq78fD8JECBAgAABAm0WEPy3efS0nQABAq0RGMT9bBaz2Sweb/tlq3/9iWlEnN38jNnsMcpd/bh9XBz/8+asPL54VZY3ux8UW2MyiUn/Nh6XdaW7YllXebBXBAgQIECAAIHTERD8n85Y6ykBAgSOJjC4v4vLZe1n7z5EEv7v1Kb+7aeivLh8H2X434/b/24iv1xw+b7cs1NFTiJAgAABAgQIdERA8N+RgdQNAgQIECBAgAABAgQIECCwTkDwv07GdgIECBA4osAkfj8esXpVEyBAgAABAgQ6JiD479iA6g4BAgS6IpBl6M8e45c+wq8rfdMPAgQIECBAgMChBQT/hxZXHwECBAisETiLdx9emw1gTdE2EyBAgAABAgROXEDwf+K/ALpPgACBJglkWf8rGfqb1DhtIUCAAAECBAi0WKA3y5675A8BAgQIECBAgAABAgQIECDQWQF3/js7tDpGgAABAgQIECBAgAABAgQWAoJ/vwkECBAgQIAAAQIECBAgQKDjAoL/jg+w7hEgQIAAAQIECBAgQIAAAcG/3wECBAgQIECAAAECBAgQINBxAcF/xwdY9wgQIECAAAECBAgQIECAgODf7wABAgQIECBAgAABAgQIEOi4gOC/4wOsewQIEOiKQK/X60pX9IMAAQIECBAgcHABwf/ByVVIgAABAgQIECBAgAABAgQOKyD4P6y32ggQIECAAAECBAgQIECAwMEFBP8HJ1chAQIECBAgQIAAAQIECBA4rIDg/7DeaiNAgAABAgQIECBAgAABAgcXEPwfnFyFBAgQIECAAAECBAgQIDp3aRwAACAASURBVEDgsAKC/8N6q40AAQIECBAgQIAAAQIECBxcQPB/cHIVEiBAgAABAgQIECBAgACBwwoI/g/rrTYCBAgQIECAAAECBAgQIHBwAcH/wclVSIAAAQIECBAgQIAAAQIEDisg+D+st9oIECBAgAABAgQIECBAgMDBBQT/BydXIQECBAgQIECAAAECBAgQOKyA4P+w3mojQIAAAQIECBAgQIAAAQIHFxD8H5xchQQIECBAgAABAgQIECBA4LACgv/DequNAAECBAgQIECAAAECBAgcXEDwf3ByFRIgQIAAAQIECBAgQIAAgcMKCP4P6602AgQIECBAgAABAgQIECBwcAHB/8HJVUiAAAECBAgQIECAAAECBA4rIPg/rLfaCBAgQIAAAQIECBAgQIDAwQUE/wcnVyEBAgQIECBAgAABAgQIEDisgOD/sN5qI0CAAAECBAgQIECAAAECBxcQ/B+cXIUECBAgQIAAAQIECBAgQOCwAoL/w3qrjQABAgQIECBAgAABAgQIHFxA8H9wchUSIECAAAECBAgQIECAAIHDCgj+D+utNgIECBAgQIAAAQIECBAgcHABwf/ByVVIgAABAgQIECBAgAABAgQOKyD4P6y32ggQIECAAAECBAgQIECAwMEFBP8HJ1chAQIECBAgQIAAAQIECBA4rMBfh61ObU0U6PV6TWyWNhEgQOCJgM+rJyQ2ECBAoNECs9ms0e3TOAKnJCD4P6XRXtNXH8prYGwmQIAAAQIECBAgQIBARwRM++/IQOoGAQIECBAgQIAAAQIECBBYJyD4XydjOwECBAgQIECAAAECBAgQ6IiA4L8jA6kbBAgQIECAAAECBAgQIEBgnYDgf52M7QQIECBAgAABAgQIECBAoCMCgv+ODKRuECBAgAABAgQIECBAgACBdQKC/3UythMgQIAAAQIECBAgQIAAgY4ICP47MpC6QYAAAQIECBAgQIAAAQIE1gkI/tfJ2E6AAAECBAgQIECAAAECBDoiIPjv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DiGQfaecRf2hUoeoWR0ETk2gN8sWePtDgAABAgQIECBAgAABAgQIdFbAnf/ODq2OESBAgAABAgQIECBAgACBhYDg328CAQIECBAgQIAAAQJbCfR6va2OdzABAscXEPwffwy0gAABAgQIECBAgAABAgQIvKmA4P9NeRVOgAABAgQIECBAgAABAgSOLyD4P/4YaAEBAgQIECBAgAABAgQIEHhTAcH/m/IqnAABAgQIECBAgAABAgQIHF9A8H/8MdACAgQIECBAgAABAgQIECDwpgKC/zflVTgBAgQIECBAgAABAgQIEDi+gOD/+GOgBQQIECBAgAABAgQIECBA4E0FBP9vyqtwAgQIECBAgAABAgQIECBwfAHB//HHoBEt6PV6jWiHRhAgQIAAAQIECBAgQIDA/gUE//s3VSIBAgQIECBAgAABAgQIEGiUgOC/UcOhMQQIECBAgAABAgQIECBAYP8Cgv/9myqRAAECBAgQIECAAAECBAg0SkDw36jh0BgCBAgQIECAAAECBAgQILB/AcH//k2VSIAAAQIECBAgQIAAAQIEGiUg+G/UcGgMAQIECBAgQIAAAQIECBDYv4Dgf/+mSiRAgAABAgQIECBAgAABAo0SEPw3ajg0hgABAgQIECBAgAABAgQI7F9A8L9/UyUSIECAAAECBAgQIECAAIFGCQj+GzUcGkOAAAECBAgQIECAAAECBPYvIPjfv6kSCRAgQIAAAQIECBAgQIBAowQE/40aDo0hQIAAAQIECBAgQIAAAQL7FxD8799UiQQIECBAgAABAgQIECBAoFECgv9GDYfGECBAgAABAgQIECBAgACB/QsI/vdvqkQCBAgQIECAAAECBAgQINAoAcF/o4ZDYwgQIECAAAECBAgQIECAwP4FBP/7N1UiAQIECBAgQIAAAQIECBBolIDgv1HDoTEECBAgQIAAAQIECBAgQGD/AoL//ZsqkQABAgQIECBAgECnBWazWaf7p3MEuigg+O/iqOoTAQIECBAgQIAAAQIECBBIBP5KXntJgAABAgQIECDQAoFer9eCVmoiAQIETkegDbNhBP+n8/uopwQIECBAgEBHBNrwJbMj1LpBgACBzgiY9t+ZoXxdR3yJeJ2fswkQIECAAAECBAgQINBkAcF/k0dH2wgQIECAAAECBAgQIECAwB4EBP97QFQEAQIECBAgQIAA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" class=""></p>
+
+<p><code>childNodes</code></p>
+
+<blockquote>
+  <p>获取当前元素所有的子节点（节点集合：类数组） <br>
+  注：不仅仅是元素子节点，文本、注释等都会包含在内；子节点说明只是在儿子辈分中查找；</p>
+</blockquote>
+
+<p><code>children</code></p>
+
+<blockquote>
+  <p>获取所有的元素子节点（元素集合） <br>
+  在IE6~8下获取的结果和标准浏览器中有区别（IE6~8中会把注释节点当做元素节点获取到）</p>
+</blockquote>
+
+<p><code>parentNode</code></p>
+
+<blockquote>
+  <p>获取当前元素的父节点（元素对象）</p>
+</blockquote>
+
+<p><code>previousSibling  nextSibling</code></p>
+
+<blockquote>
+  <p>previousSibling：获取当前节点的上一个哥哥节点（不一定是元素节点也可能是文本或者注释） <br>
+  nextSibling：获取当前节点的下一个弟弟节点</p>
+</blockquote>
+
+<p><code>previousElementSibling  nextElementSibling</code></p>
+
+<blockquote>
+  <p>previousElementSibling  ：获取当前节点的上一个哥哥元素节点 <br>
+  nextElementSibling：获取当前节点的下一个弟弟元素节点 <br>
+  IE6~8下不兼容</p>
+</blockquote>
+
+<p><code>firstChild  lastChild</code></p>
+
+<blockquote>
+  <p>firstChild：当前元素所有子节点中的第一个（也不一定是元素节点，可能是文本和注释） <br>
+  lastChild：当前元素所有子节点中的最后一个</p>
+  
+  <p>firstElementChild    lastElementChild (IE6~8不兼容)</p>
+</blockquote>
+
+<h3 id="dom的增删改">DOM的增删改</h3>
+
+<blockquote>
+  <p>真实项目中，我们偶尔会在JS中动态创建一些HTML标签，然后把其增加到页面中</p>
+</blockquote>
+
+<p><code>document.createElement</code></p>
+
+<blockquote>
+  <p>在JS中动态创建一个HTML标签</p>
+</blockquote>
+
+<p><code>appendChild</code></p>
+
+<blockquote>
+  <p>容器.appendChild(新元素) <br>
+  把当前创建的新元素添加到容器的末尾位置</p>
+</blockquote>
+
+<p><code>insertBefore</code></p>
+
+<blockquote>
+  <p>容器.insertBefore(新元素，老元素) <br>
+  在当前容器中，把新创建的元素增加到老元素之前</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;真实项目中很多需求都是通过动态创建元素来完成的，其中有一个需求：解析一个URL地址每一部分的信息（包含问号传递的参数值）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//-&gt;1、纯字符串拆分截取</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//-&gt;2、编写强大的正则，捕获到需要的结果</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//-&gt;3、通过动态创建一个A标签，利用A标签的一些内置属性来分别获取每一部分的内容</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//-&gt;...</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">/*
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">8.</span> var link=document.createElement('a');
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> link.href='http://www.zhufengpeixun.cn/stu/?name=zxt&amp;age=27#teacher';//-&gt;此处地址就是我们需要解析的URL
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span> * hash：存储的是哈希值  '#teacher'
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span> * hostname：存储的是域名  'www.zhufengpeixun.cn'
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span> * pathname：存储的是请求资源的路径名称 '/stu/'
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span> * protocol：协议 'http:'
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span> * search：存储的是问号传递的参数值，没有传递是空字符串 '?name=zxt&amp;age=27'
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>*/
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">queryURLParameter</span>(<span class="hljs-params">url</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>    <span class="hljs-keyword">var</span> link=<span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'a'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>    link.href=url;
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>    <span class="hljs-keyword">var</span> search=link.search,
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        obj={};
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>    <span class="hljs-keyword">if</span>(search.length===<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>    search=search.substr(<span class="hljs-number">1</span>).split(<span class="hljs-regexp">/&amp;|=/g</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;search.length;i+=<span class="hljs-number">2</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>        <span class="hljs-keyword">var</span> key=search[i],
+</div><div class="hljs-line"><span class="hljs-comment line-number">28.</span>            value=search[i+<span class="hljs-number">1</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">29.</span>        obj[key]=value; 
+</div><div class="hljs-line"><span class="hljs-comment line-number">30.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">31.</span>    link=<span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">32.</span>    <span class="hljs-keyword">return</span> obj;
+</div><div class="hljs-line"><span class="hljs-comment line-number">33.</span>}
+</div></code></pre>
+
+<p><code>removeChild</code></p>
+
+<blockquote>
+  <p>容器.removeChild(元素) <br>
+  在当前容器中把某一个元素移除掉</p>
+</blockquote>
+
+<p><code>replaceChild</code></p>
+
+<blockquote>
+  <p>容器.replaceChild(新元素,老元素) <br>
+  在当前容器中，拿新元素替换老元素</p>
+</blockquote>
+
+<p><code>cloneNode</code></p>
+
+<blockquote>
+  <p>元素.cloneNode(false/true) <br>
+  把原有的元素克隆一份一模一样的，false：只克隆当前元素本身，true：深度克隆，把当前元素本身以及元素的所有后代都进行克隆</p>
+</blockquote>
+
+<p><code>[set/get/remove]Attribute</code></p>
+
+<blockquote>
+  <p>给当前元素设置/获取/移除 属性的（一般操作的都是它的自定义属性） <br>
+  box.setAttribute(‘myIndex’,0) <br>
+  box.getAttribute(‘myIndex’) <br>
+  box.removeAttribute(‘myIndex’)</p>
+  
+  <p>使用xxx.index=0 和 xxx.setAttribute(‘index’,0) 这两种设置自定义属性的区别？ <br>
+  xxx.index：是把当前操作的元素当做一个普通对象，为其设置一个属性名（和页面中的HTML标签没关系） <br>
+  xxx.setAttribute：把元素当做特殊的元素对象来处理，设置的自定义属性是和页面结构中的DOM元素映射在一起的</p>
+</blockquote>
+
+<p>JS中获取的元素对象，我们可以把它理解为两种角色：</p>
+
+<ul><li>与页面HTML结构无关的普通对象</li>
+<li>与页面HTML结构存在映射关系的元素对象</li>
+</ul>
+
+<blockquote>
+  <p>元素对象中的内置属性，大部分都和页面的标签存在映射关系： <br>
+  xxx.style.backgroundColor = ‘xxx’  此时不仅把JS中对象对应的属性值改变了，而且也会映射到页面的HTML标签上（标签中有一个style行内样式、元素的样式改变了）</p>
+  
+  <p>xxx.className=’xxx’ 此时不仅是把JS对象中的属性值改了，而且页面中的标签增加了class样式类（可以看见的）</p>
+</blockquote>
+
+<hr>
+
+<blockquote>
+  <p>元素对象中的自定义属性：xxx.index=0 <br>
+  仅仅是把JS对象中增加了一个属性名（自定义的），和页面中的HTML没啥关系（在结构上看不见）</p>
+</blockquote>
+
+<hr>
+
+<blockquote>
+  <p>xxx.setAttribute：通过这种方式设置的自定义属性和之前提到的内置属性差不多，都是和HTML结构存在映射关系的（设置的自定义属性可以呈现在结构上）</p>
+</blockquote></div></body></html>

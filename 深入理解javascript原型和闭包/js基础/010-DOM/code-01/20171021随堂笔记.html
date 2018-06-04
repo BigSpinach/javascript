@@ -1,0 +1,376 @@
+<!DOCTYPE html><html><head><title>20171021随堂笔记</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h2 id="20171021随堂笔记">20171021随堂笔记</h2>
+
+<p></p>
+
+<blockquote>
+  <p>考试内容 <br>
+  【上机】 <br>
+  必考：选项卡+数组去重(对象处理) <br>
+  选考：冒泡、插入、快速排序 （-￥100）</p>
+  
+  <p>【笔试】 <br>
+  100分满分 （单独奖励￥100红包） <br>
+  90及以上分数（-￥100） <br>
+  70及以上及格 <br>
+  又一次补考机会（补考不参与任何奖励）</p>
+  
+  <p>考试范围：JS的导入方式、浏览器内核、变量常量、命名规范、数据类型（检测、区别）、number详解（NaN、Number、parseInt、parseFloat…）、boolean详解（!、!!）、object、function、隔行变色、选项卡（自定义属性思想处理）、array、数据类型转换、Math、String、string的处理案例、dom常用方法</p>
+</blockquote>
+
+
+
+<h3 id="数据类型转换汇总">数据类型转换（汇总）</h3>
+
+<p><code>把其它数据类型转换为number</code></p>
+
+<blockquote>
+  <p>isNaN、Number、parseInt、parseFloat <br>
+  数学运算（加减乘除：加法有有特殊性）</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-string">''</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-string">'12'</span> -&gt;<span class="hljs-number">12</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-string">'12px'</span> -&gt;使用<span class="hljs-built_in">Number</span>转换变为<span class="hljs-literal">NaN</span>  使用<span class="hljs-built_in">parseInt</span>/<span class="hljs-built_in">parseFloat</span>结果是<span class="hljs-number">12</span> (浏览器默认使用的都是<span class="hljs-built_in">Number</span>方法转换的)
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-literal">true</span> -&gt;<span class="hljs-number">1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-literal">false</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-literal">null</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//=&gt;引用数据类型转换为数字：先调用toString转换为字符串，然后再使用Number转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{} -&gt;<span class="hljs-string">'function(){}'</span>  -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>{} -&gt;<span class="hljs-string">'[object Object]'</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>/^$/ -&gt;<span class="hljs-string">'/^$/'</span> -&gt;<span class="hljs-literal">NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>[] -&gt;<span class="hljs-string">''</span> -&gt;<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>[<span class="hljs-number">12</span>] -&gt;<span class="hljs-string">'12'</span> -&gt;<span class="hljs-number">12</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>[<span class="hljs-number">12</span>,<span class="hljs-number">23</span>] -&gt;<span class="hljs-string">'12,23'</span> -&gt;<span class="hljs-literal">NaN</span>
+</div></code></pre>
+
+<p><code>把其它类型转换为字符串</code></p>
+
+<blockquote>
+  <p>toString() <br>
+  引用类型变为数字的时候，中间先转换为字符串 <br>
+  在字符串拼接的时候</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-number">1</span> -&gt;<span class="hljs-string">'1'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-literal">NaN</span> -&gt;<span class="hljs-string">'NaN'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>...
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//=&gt;基本上所有值变为字符串，都是在原有值的基础上包裹一层单(双)引号；有一种情况除外：普通{}包起来的对象，在使用toString转换为字符串的时候，返回的结果是 '[object Object]'，不是转换为字符串，而是检测数据类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>{} -&gt;<span class="hljs-string">'[object Object]'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//=&gt;Object.prototype.toString.call：检测数据类型的其中一种方式</span>
+</div></code></pre>
+
+<p><code>扩充：数学运算</code></p>
+
+<blockquote>
+  <p><code>+ - * / % ...</code></p>
+  
+  <p>除了加法有特殊性，其余的操作都是数学运算，没有第二种情况</p>
+  
+  <p>在进行相加操作的时候，如果有一面出现了字符串，此时当前的操作就不在是数学运算，而是变为字符串的拼接，否则依然是数学运算</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> result = <span class="hljs-number">10</span>+<span class="hljs-literal">null</span>+<span class="hljs-literal">true</span>+(<span class="hljs-number">3</span>*<span class="hljs-string">'3px'</span>)+[<span class="hljs-number">10</span>]+<span class="hljs-literal">undefined</span>+<span class="hljs-string">'珠峰'</span>+<span class="hljs-literal">false</span>+<span class="hljs-literal">null</span>+[<span class="hljs-number">10</span>]+<span class="hljs-literal">undefined</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">/*
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> 3*'3px' -&gt;NaN
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> 10+null -&gt;10
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> 10+true -&gt;11
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span> 11+NaN  -&gt;NaN
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span> NaN+[10] -&gt;NaN+'10' -&gt;'NaN10'
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> 'NaN10'+undefined -&gt;'NaN10undefined'
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span> ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span> 最后结果：'NaN10undefined珠峰falsenull10undefined'
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>*/
+</div></code></pre>
+
+<p><code>把其它类型值转换为布尔</code></p>
+
+<blockquote>
+  <p>Boolean、!、!! <br>
+  if(3+’3px’){}  在条件判断中，首先计算3+’3px’的结果:’33px’，然后再把当前这个结果转换为布尔验证真假，以此决定条件是否成立 <br>
+  if(oBox){} 也是把oBox变量存储值的转换为布尔类型验证真假</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;除了 ·NaN、0、空字符串、null、undefined· 五个会转换为布尔类型的false，其余的都会转换为true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>!!<span class="hljs-number">0</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>!!<span class="hljs-literal">NaN</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>!![] -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>![] -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>...
+</div></code></pre>
+
+<p><code>JS中验证左右两边值是否相等</code></p>
+
+<blockquote>
+  <p><code>==</code>：比较（左右两边值的类型不一样，浏览器会先转换为一样的，然后再比较值） <br>
+  <code>===</code>：绝对比较（要求两边的类型必须一样才会再比较值，如果不一样，结果是FALSE）</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;使用两个等于号，两边值是相同类型的</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-literal">NaN</span>==<span class="hljs-literal">NaN</span> -&gt;<span class="hljs-literal">false</span>(<span class="hljs-literal">NaN</span>和谁都不相等包括自己)
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>[]==[] -&gt;<span class="hljs-literal">false</span>(引用数据类型比较的时候看的都是各自引用空间的地址，如果是相同空间就相等，不是相同空间肯定不等)
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//=&gt;使用两个等于号，两边的值是不同的类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>[]==<span class="hljs-number">0</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>{}==<span class="hljs-number">0</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//引用==数字：把引用数据类型转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>[]==<span class="hljs-string">''</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>[<span class="hljs-number">12</span>,<span class="hljs-number">23</span>]==<span class="hljs-string">'12,23'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-comment">//引用==字符串：把引用数据类型转换为字符串</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>[]==<span class="hljs-literal">false</span> -&gt;<span class="hljs-literal">true</span> ([]-&gt;<span class="hljs-number">0</span> <span class="hljs-literal">false</span>-&gt;<span class="hljs-number">0</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>![]==<span class="hljs-literal">false</span> -&gt;<span class="hljs-literal">true</span> (先计算左边的表达式![]-&gt;<span class="hljs-literal">false</span> 此时左右两边数据类型一致 <span class="hljs-literal">false</span>==<span class="hljs-literal">false</span>，最后结果是<span class="hljs-literal">true</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span><span class="hljs-comment">//引用==布尔：把两边都转换为数字（千万不要理解为把引用变为布尔，而是都转为数字）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span><span class="hljs-string">'12'</span>==<span class="hljs-number">12</span> -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span><span class="hljs-comment">//字符串==数字：字符串转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span><span class="hljs-string">'12'</span>==<span class="hljs-literal">true</span> -&gt;<span class="hljs-literal">false</span> (<span class="hljs-string">'12'</span>-&gt;<span class="hljs-number">12</span> <span class="hljs-literal">true</span>-&gt;<span class="hljs-number">1</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span><span class="hljs-comment">//字符串==布尔：两边都转换为数字</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span><span class="hljs-literal">false</span>==<span class="hljs-number">-1</span> -&gt;<span class="hljs-literal">false</span> (<span class="hljs-literal">false</span>-&gt;<span class="hljs-number">0</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span><span class="hljs-comment">//布尔==数字：把布尔转换为数字</span>
+</div></code></pre>
+
+<blockquote>
+  <p>总结：两个等于比较，两边类型不一样，除了<code>引用==字符串</code>中是把引用类型转换为字符串，其余的只要当前值不是数字，都要先转换为数字，然后再比较</p>
+  
+  <p>null和undefined还是一样特殊： <br>
+  <code>null和undefined是相等的，两者和其余任何的一个值都不相等</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-literal">null</span>==<span class="hljs-literal">undefined</span>  -&gt;<span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-literal">null</span>===<span class="hljs-literal">undefined</span> -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-literal">null</span>==<span class="hljs-number">0</span>  -&gt;<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>...
+</div></code></pre>
+
+
+
+<h3 id="math">Math</h3>
+
+<blockquote>
+  <p>数学函数：但是它是对象数据类型的，<code>typeof Math -&gt;'object'</code>，之所以叫做数学函数，因为Math对象中提供了很多操作数字的属性和方法</p>
+  
+  <p>dir(Math)：在控制台中查看Math中提供的方法</p>
+</blockquote>
+
+<p><code>abs</code></p>
+
+<blockquote>
+  <p>Math.abs([value])：获取绝对值</p>
+</blockquote>
+
+<p><code>ceil  floor</code></p>
+
+<blockquote>
+  <p>Math.ceil([value])：向上取整 <br>
+  Math.floor([value])：向下取整</p>
+</blockquote>
+
+<p><code>round</code></p>
+
+<blockquote>
+  <p>Math.round([value])：四舍五入</p>
+</blockquote>
+
+<p><code>random</code></p>
+
+<blockquote>
+  <p>Math.random()：获取0~1之间的随机小数</p>
+  
+  <p>获取[n,m]之间的随机整数 <br>
+  <code>Math.round(Math.random()*(m-n)+n)</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;获取1~10之间的随机整数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.random()*<span class="hljs-number">9</span>+<span class="hljs-number">1</span>)
+</div></code></pre>
+
+<p><code>max min</code></p>
+
+<blockquote>
+  <p>Math.max([value1],[value2]…)：获取一堆值中最大 <br>
+  Math.min([value1],[value2]…)：获取一堆值中最小</p>
+</blockquote>
+
+<p><code>PI</code></p>
+
+<blockquote>
+  <p>Math.PI：获取圆周率 π <br>
+  3.141592653589793</p>
+</blockquote>
+
+<p><code>pow  sqrt</code></p>
+
+<blockquote>
+  <p>Math.pow([value],[n])：获取value的n次幂(n次方) <br>
+  Math.sqrt([value])：获取value开平方的值</p>
+</blockquote>
+
+
+
+<h3 id="string">String</h3>
+
+<blockquote>
+  <p>字符串：在JS中用单(双)引号包起来的都是字符串</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'hello world!'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>str.length =&gt;当前字符串中字符的个数(字符串的长度)
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>str[<span class="hljs-number">0</span>] =&gt;获取索引<span class="hljs-number">0</span>位置的字符 <span class="hljs-string">'h'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>str[str.length<span class="hljs-number">-1</span>] =&gt;获取最后一个字符 <span class="hljs-string">'!'</span> 
+</div></code></pre>
+
+<p><code>charAt  charCodeAt  String.fromCharCode</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'hello world!'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;charAt：通过索引找到指定的字符</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>str[<span class="hljs-number">0</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>str.charAt(<span class="hljs-number">0</span>) 都是获取第一个字符
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>str[<span class="hljs-number">100</span>] -&gt;<span class="hljs-literal">undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>str.charAt(<span class="hljs-number">100</span>) -&gt;<span class="hljs-string">''</span>  使用charAt在无法获取有效字符的时候返回的是一个空字符串
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;charCodeAt：在charAt的基础上，把获取的值转换为 `编码值`</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//-&gt;如果获取的是中文汉字，转换为unicode编码值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//-&gt;如果是特殊字符或者字母数字，转换为ASCII编码表中的值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>str.charCodeAt(<span class="hljs-number">0</span>)  -&gt;<span class="hljs-number">104</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span><span class="hljs-comment">//=&gt;String.fromCharCode：和charCodeAt对应，把一个编码值回归原来的字符</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span><span class="hljs-built_in">String</span>.fromCharCode(<span class="hljs-number">104</span>) -&gt;<span class="hljs-string">'h'</span>
+</div></code></pre>
+
+<p><code>toUpperCase toLowerCase</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'Hello World!'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;toUpperCase：把所有字母大写</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;toLowerCase：把所有字母小写</span>
+</div></code></pre>
+
+<p><code>indexOf lastIndexOf</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'Hello World!'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;indexOf：检测某一个字符在字符串中第一次出现位置的索引</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;lastIndexOf：检测某一个字符在字符串中最后一次出现位置的索引</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>str.indexOf(<span class="hljs-string">'W'</span>) -&gt;<span class="hljs-number">6</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>str.lastIndexOf(<span class="hljs-string">'W'</span>) -&gt;<span class="hljs-number">6</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>str.indexOf(<span class="hljs-string">'llo'</span>) -&gt;找到的字符必须是三个连在一起的，获取的是第一个字符l的索引
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;如果当前字符在字符串中不存在，返回的索引是-1（因为只要存在，索引范围就是&gt;=0）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">if</span>(str.indexOf(<span class="hljs-string">'?'</span>)&gt;<span class="hljs-number">-1</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    <span class="hljs-comment">//-&gt;当前?在字符串中存在，反之是不存在：通过这种方式可以验证一个字符在字符串中是否存在 </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>}
+</div></code></pre>
+
+<p><code>substr substring slice</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'Hello World!'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;substr(n,m)：从索引n开始截取m个字符</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//=&gt;substring(n,m)：从索引n开始截取到索引为m处(不包含m)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-comment">//=&gt;slice(n,m)：语法和substring相同，只不过substring不支持负数索引，而slice支持以负数作为索引</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>str.substr(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>) -&gt;<span class="hljs-string">'llo '</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>str.substring(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>) -&gt;<span class="hljs-string">'ll'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>str.slice(<span class="hljs-number">2</span>,<span class="hljs-number">4</span>) -&gt;<span class="hljs-string">'ll'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>str.substring(<span class="hljs-number">-4</span>,<span class="hljs-number">-2</span>) -&gt;<span class="hljs-string">''</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>str.slice(<span class="hljs-number">-4</span>,<span class="hljs-number">-2</span>) -&gt;<span class="hljs-string">'rl'</span> 倒着找，JS是用总长度+索引来处理的 str.slice(str.length<span class="hljs-number">-4</span>,str.length<span class="hljs-number">-2</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-comment">//=&gt;如果只传递一个参数：从当前索引一直截取到末尾</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>str.substr(<span class="hljs-number">2</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>str.substr(<span class="hljs-number">0</span>) 把原有字符串中内容都截取一份（字符串克隆）
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>str.substr() 等价于上面传递个<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span><span class="hljs-comment">//=&gt;其它特殊情况（n&gt;m、n或者m不是有效数字、n或者m是小数、n或者m的值超过最大的索引等）自己回去试验</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>...
+</div></code></pre>
+
+<p><code>split</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;split：和数组中的join对应，通过此方法，我们可以把字符串按照某一个连接符进行拆分，然后分别存储到数组中</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'music|food|dance|javascript'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>str.split(<span class="hljs-string">'|'</span>) -&gt;[<span class="hljs-string">"music"</span>, <span class="hljs-string">"food"</span>, <span class="hljs-string">"dance"</span>, <span class="hljs-string">"javascript"</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> ary=[<span class="hljs-string">"music"</span>, <span class="hljs-string">"food"</span>, <span class="hljs-string">"dance"</span>, <span class="hljs-string">"javascript"</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>ary.join(<span class="hljs-string">'|'</span>) -&gt;<span class="hljs-string">"music|food|dance|javascript"</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//----------------</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'zhufeng'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>str.split(<span class="hljs-string">'@'</span>) -&gt;[<span class="hljs-string">"zhufeng"</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'zhufeng@'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>str.split(<span class="hljs-string">'@'</span>) -&gt;[<span class="hljs-string">"zhufeng"</span>, <span class="hljs-string">""</span>]
+</div></code></pre>
+
+<p><code>replace</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'zhufeng2017zhufeng2018'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//=&gt;replace：把字符串中的原有字符替换成一个新的字符</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>str.replace(<span class="hljs-string">'zhufeng'</span>,<span class="hljs-string">'珠峰'</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//=&gt;在不使用正则的情况下，执行一次replace只能替换一次</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>str.replace(<span class="hljs-string">'zhufeng'</span>,<span class="hljs-string">'珠峰'</span>).replace(<span class="hljs-string">'zhufeng'</span>,<span class="hljs-string">'珠峰'</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//=&gt;有些时候我们执行N次也达不到想要的效果，例如：我们想把zhufeng替换为zhufengpeixun</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>str=str.replace(<span class="hljs-string">'zhufeng'</span>,<span class="hljs-string">'zhufengpeixun'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>str=str.replace(<span class="hljs-string">'zhufeng'</span>,<span class="hljs-string">'zhufengpeixun'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//-&gt;"zhufengpeixunpeixun2017zhufeng2018"</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-comment">//=&gt;遇到上述场景，我们只能使用正则处理了（真实项目中replace一般都是伴随正则使用的）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>str.replace(<span class="hljs-regexp">/zhufeng/g</span>,<span class="hljs-string">'zhufengpeixun'</span>);
+</div></code></pre>
+
+<p>match <br>
+localeCompare <br>
+trim trimLeft trimRight <br>
+…</p>
+
+<blockquote>
+  <p>在控制台输出：dir(String.prototype)</p>
+</blockquote></div></body></html>
