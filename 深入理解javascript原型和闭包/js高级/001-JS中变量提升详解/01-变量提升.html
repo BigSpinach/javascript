@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>01-遍历提升</title>
+	</head>
+
+	<body>
+		<pre>
+			
+			console.log(num);
+			console.log(fn);
+			//fn();//->放在前面执行也可以    
+			var num = 13;
+	
+			function fn() {
+				console.log(a);
+				var a = 10;
+				console.log(a);
+			}
+			fn();
+			console.log(num);
+		
+
+		</pre>
+
+		<ul>
+			<li>1.变量提升 num = undefined , fn=>function(){...}</li>
+			<li>2.代码自上而下执行 ， console.log(num)//undefined
+				<br />
+				 console.log(fn);//function(){...}
+			</li>
+			<li>3.执行fn(),fn()函数的上下文环境中，变量提升  a=>undefined,</li>
+			<li>4.代码自上而下执行 :console.log(a);//undefined</li>
+			<li>5.a=10;console.log(a);//10</li>
+			
+			<li>6.console.log(num);//13</li>
+		</u>
+		<img src="变量提升.png" alt="" />
+	</body>
+	<script>
+		console.log(num);
+		console.log(fn);
+		//fn();//->放在前面执行也可以    
+		var num = 13;
+
+		function fn() {
+			console.log(a);
+			var a = 10;
+			console.log(a);
+		}
+		fn();
+		console.log(num);
+	</script>
+
+</html>

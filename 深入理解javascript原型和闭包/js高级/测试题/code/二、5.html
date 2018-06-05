@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		function Fn() {
+			this.x = 100;
+			this.y = 200;
+			this.getX = function() {
+				console.log(this.x);
+			}
+		}
+		Fn.prototype.getX = function() {
+			console.log(this.x);
+		};
+		Fn.prototype.getY = function() {
+			console.log(this.y);
+		};
+		var f1 = new Fn;
+		var f2 = new Fn;
+		console.log(f1.getX === f2.getX);
+		console.log(f1.getY === f2.getY);//这里我答错了，正确答案是true
+		//true的原因是，f1和f2实例的对象自身都没有getY方法，要比较他俩的这个方法就得去原型上找，所以比较的是f1和f2原型上的同一个方法，
+		//所以返回的是true
+		console.log(f1.__proto__.getY === Fn.prototype.getY);//true
+		console.log(f1.__proto__.getX === f2.getX);//false，地址不同
+		console.log(f1.getX === Fn.prototype.getX);//false，地址不同
+		console.log(f1.constructor);//Fn{}构造函数
+		console.log(Fn.prototype.__proto__.constructor);Object{}
+		f1.getX();//100
+		f1.__proto__.getX();//undefined
+		f2.getY();//200
+		Fn.prototype.getY();//undefined
+	</script>
+
+</html>

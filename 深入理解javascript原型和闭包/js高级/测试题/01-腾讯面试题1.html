@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="btnBox">
+			<input type="button" value="button_1" />
+			<input type="button" value="button_2" />
+			<input type="button" value="button_3" />
+			<input type="button" value="button_4" />
+			<input type="button" value="button_5" />
+		</div>
+	</body>
+	<script>
+		var btnBox = document.getElementById('btnBox'),
+			inputs = btnBox.getElementsByTagName('input');
+		var l = inputs.length;
+		for(let i = 0; i < l; i++) {
+			inputs[i].onclick = function() {
+				alert(i);
+				//i--;
+				
+				
+			}
+		}
+	</script>
+
+</html>

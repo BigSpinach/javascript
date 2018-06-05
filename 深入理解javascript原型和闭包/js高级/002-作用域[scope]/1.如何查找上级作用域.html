@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>如何查找上级作用域</title>
+	</head>
+
+	<body>
+		<h1>如何查找上级作用域</h1>
+		<p>函数执行形成一个私有的作用域(A)，A的上级作用域是谁，和他在哪执行的没关系，主要看他是在哪定义的，在哪个作用域下定义的，
+		当前A的上级作用域就是谁；
+		</p>
+	</body>
+	<script>
+		var num= 10;
+		function sum() {
+			console.log(num);
+		};
+		
+		(function(){
+			var num = 250;
+			sum();	
+		})();
+	</script>
+</html>

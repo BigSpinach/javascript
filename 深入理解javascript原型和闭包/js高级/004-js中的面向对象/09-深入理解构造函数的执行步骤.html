@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>03-深入裂解构造函数的执行步骤</title>
+		<style>
+			.container{
+				padding: 20px 20px;
+			}
+			.container img{
+				padding: 20px 20px;
+				width: 80%;
+				height: 80%;
+				
+			}
+		</style>
+	</head>
+
+	<body class ="container">
+		<h1>深入裂解构造函数的执行步骤</h1>
+		<p>1.构造函数  return  基本数据类型的值</p>
+		<br />
+		<img src="09_code_1.png" alt="" />
+		<br />
+		<img src="09_console_1.png" alt="" />
+		<hr />
+		
+		<p>2.构造函数  不写return</p>
+		<br />
+		<img src="09_code_2.png" alt="" />
+		<br />
+		<img src="09_console_2.png" alt="" />
+		<hr />
+		
+		<p>3.构造函数  return 引用数据类型的值</p>
+		<br />
+		<img src="09_code_3.png" alt="" />
+		<br />
+		<img src="09_console_3.png" alt="" />
+		<hr />
+		
+		
+	</body>
+	<script>
+		console.log("-------------构造函数  return  基本数据类型的值----------");
+		{  
+			/*
+			 构造函数return的是基本数据类型的值的时候
+			 	直接执行构造函数，返回啥，就是啥
+			 	实例化对象的时候，返回的还是实例化的那个对象，
+			 * 
+			 * */
+			function Fn() {
+				this.a = "构造函数的a";
+				return 0;
+			}
+			
+			//实例化一个Fn()
+			let f1 = new Fn();
+			let f2 = new Fn;
+			console.log(f1);//Fn {a: "构造函数的a"}
+			console.log(f2);//Fn {a: "构造函数的a"}
+			
+			//自定义各自的属性和值
+			f1.name  ="BigSpinach";
+			f2.name  ="刘凯";
+			console.log(f1);//Fn {a: "构造函数的a", name: "BigSpinach"}
+			console.log(f2);//Fn {a: "构造函数的a", name: "刘凯"}
+			
+			//直接执行构造函数
+			console.log(Fn());//0
+		}
+		
+		console.log("-------------构造函数不写return----------");
+		{  
+			/*
+			 构造函数不写return的时候
+			 	直接执行构造函数，返回undefined
+			 	实例化对象的时候，返回的是实例化的那个对象，
+			 * 
+			 * */
+			function Fn() {
+				this.a = "构造函数的a";
+				
+			}
+			
+			//实例化一个Fn()
+			let f1 = new Fn();
+			let f2 = new Fn;
+			console.log(f1);//Fn {a: "构造函数的a"}
+			console.log(f2);//Fn {a: "构造函数的a"}
+			
+			//自定义各自的属性和值
+			f1.name  ="BigSpinach";
+			f2.name  ="刘凯";
+			console.log(f1);//Fn {a: "构造函数的a", name: "BigSpinach"}
+			console.log(f2);//Fn {a: "构造函数的a", name: "刘凯"}
+			
+			//直接执行构造函数
+			console.log(Fn());//undefined
+
+		}
+		
+		console.log("-------------构造函数  return  引用数据类型的时候----------");
+		{  
+			/*
+			 构造函数  return  引用数据类型的时候
+			 	直接执行构造函数，返回  引用类型数据的对象
+			 	实例化对象的时候，返回的是return 的那个引用数据类型的对象
+			 * 
+			 * */
+			function Fn() {
+				this.a = "构造函数的a";
+				return obj={
+					name:"obj的name属性值",
+					age: "obj的age属性值"
+				}
+			}
+			
+			//实例化一个Fn()
+			let f1 = new Fn();
+			let f2 = new Fn;
+			console.log(f1);//{name: "obj的name属性值", age: "obj的age属性值"}
+			console.log(f2);//{name: "obj的name属性值", age: "obj的age属性值"}
+			
+			//自定义各自的属性和值
+			f1.name  ="BigSpinach";
+			f2.name  ="刘凯";
+			console.log(f1);//{name: "BigSpinach", age: "obj的age属性值"}
+			console.log(f2);//{name: "刘凯", age: "obj的age属性值"}
+			
+			//直接执行构造函数
+			console.log(Fn());//{name: "obj的name属性值", age: "obj的age属性值"}
+		}
+	</script>
+
+</html>
