@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>条件判断下的遍历提升</title>
+	</head>
+	<body>
+		<h1>
+			条件判断下的遍历提升
+		</h1>
+		<div>
+			<p>条件判断里边的变量提升</p>
+			<ul>
+				<li>带var的只是声明</li>
+				<li>带function的，在ES5中是生明+定义，<br /><b>在es6中，只声明</b></li>
+				<li>没有var和function的，就在当前的作用域中声明变量</li>
+			</ul>
+		</div>
+			
+		<hr />
+		<p>undefined、NaN、null、""、0默认转为false，其他的转为true</p>
+		<p>例如：[],{},' ',等都转为true</p>
+		
+	</body>
+	<script src="条件判断下的遍量提升.js"></script>
+</html>

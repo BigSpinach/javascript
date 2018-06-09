@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+
+	<body>
+		<div id="btnBox">
+			<input type="button" value="按钮1">
+			<input type="button" value="按钮2">
+			<input type="button" value="按钮3">
+		</div>
+	</body>
+	<!--<script src="12.js"></script>-->
+	<script>
+		//需求，通过点击按钮，弹出对应的索引
+		/*{
+			let btnBox =document.getElementById("btnBox");
+			let btns =btnBox.getElementsByTagName('input');
+			//alert(btns.length);
+			for(var i=0;i<btns.length;i++){
+				btns[i].onclick =function(){
+					alert(i);//弹出的全部都是3，原因是，for循环的虚幻条件处定义了全局变量i,循环结束后，i就变成了3
+				}
+			}
+		}*/
+		//方式一：使用闭包解决
+		{
+			/*
+			let btnBox = document.getElementById("btnBox");
+			let btns = btnBox.getElementsByTagName('input');
+			*/
+			/*闭包方式1
+				for(var i=0;i<btns.length;i++){
+					btns[i].onclick =(function(i){
+						return function(){						
+							alert(i);
+						}
+						
+					})(i);
+				}
+			*/
+			/*闭包方式2
+			
+			for(var i = 0; i < btns.length; i++) {
+				let num = i;
+				btns[i].onclick = function(i) {
+					alert(num);
+				};
+			}*/
+
+			/*闭包方式3
+			
+			for(var i = 0; i < btns.length; i++) {
+				
+				let num = i;
+				btns[i].onclick = function(i) {
+					return function(){
+						alert(num);
+					}
+				}();
+			}
+			*/
+
+		}
+		//方式二：使用私有变量
+		/*	{
+				let btnBox = document.getElementById("btnBox");
+				let btns = btnBox.getElementsByTagName('input');
+				for(var i = 0; i < btns.length; i++) {
+					let num = i;
+					btns[i].onclick = function() {
+						alert(num);
+					}
+				}
+			}
+		*/
+
+		//方式三  设置属性的方式
+		/*
+		{
+			let btnBox = document.getElementById("btnBox");
+			let btns = btnBox.getElementsByTagName('input');
+			for(var i = 0; i < btns.length; i++) {
+				btns[i].index = i;
+				btns[i].onclick = function() {
+					alert(this.index);
+				}
+
+			}
+		}
+		*/
+
+		//方式四  ES6  的let变量机制(块级作用域)
+		{
+			let btnBox = document.getElementById("btnBox");
+			let btns = btnBox.getElementsByTagName('input');
+			for(let i = 0; i < btns.length; i++) {
+				btns[i].onclick = function() {
+					alert(i);
+				}
+			}
+		}
+	</script>
+
+</html>

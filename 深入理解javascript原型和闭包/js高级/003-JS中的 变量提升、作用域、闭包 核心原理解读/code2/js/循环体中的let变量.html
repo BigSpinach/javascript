@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		//循环体中的let
+		/*{
+			let i = "我是循环体外边的i"
+			
+			for(let i = 0; i < 5; i++) {
+				//=>循环体也是块级作用域，初始值设置的变量是当前本次块级作用域中的变量
+				//(形成了五个块级作用域，每个块级作用域中都有一个私有变量I，变量值就是每一次循环I的值)
+				console.log(this);//window
+				console.log(this.i);//undefined
+				console.log(i);//0  ,1  , 2  ,3  ,4
+				console.log("---" + i + "---");
+
+			}
+			
+			
+		}*/
+
+		{
+			let i = "我是循环体外边的i"; //块级作用域
+
+			let fn = function() {
+				for(let i = 0; i < 5; i++) {
+					//=>循环体也是块级作用域，初始值设置的变量是当前本次块级作用域中的变量
+					//(形成了五个块级作用域，每个块级作用域中都有一个私有变量I，变量值就是每一次循环I的值)
+					console.log(this); //window
+					console.log(this.i); //undefined
+					console.log(i); //0  ,1  , 2  ,3  ,4
+					console.log("---" + i + "---");
+
+				}
+			};
+
+			let obj = {
+				i: "obj的i",
+				
+				fn: function() {
+					console.log(this); //obj
+					console.log(this.i); //obj.i
+					console.log("---" + "嘻嘻嘻 "+ "---"); //i是找function的父级作用域中的i ,
+					//fn的父级是obj,obj下的i --- let i = "我是循环体外边的i";//块级作用域
+
+				}
+				
+			};
+			
+			//console.log(this);//window
+			//console.log(this.fn);//undefined
+
+			//obj.fn();
+			//fn();
+			
+			//需求：使用obj对象调用obj的作用域下的  fn函数
+			//1.将obj.fn属性的 父级（__proto__）指向fn变量
+			//2.执行obj的父级下的fn属性
+			//obj.__proto__.fn = fn;
+			//obj.constructor.fn();
+			
+			/*
+			//obj{}中没有定义fn属性
+			obj.fn = fn;//重新当以属性，并赋值
+			obj.fn();//执行
+			*/
+			
+			//obj{}中有自有属性fn
+			//obj.fn= fn;
+			//obj.fn();
+			//console.log(obj.prototype);
+			
+			//prototype  constructor  __proto__
+			//*prototype 是每个函数的一个属性，每个函数都有这个属性，
+			//	这个属性存放的是当前这个函数的所有属性的集合，其集合中有一个constructor的属性，这个属性又指向这个函数对象
+			//*__proto__ 双下划线proto，每个函数对象都有这个属性，它指向创建这个函数的prototype
+			
+
+		}
+	</script>
+
+</html>

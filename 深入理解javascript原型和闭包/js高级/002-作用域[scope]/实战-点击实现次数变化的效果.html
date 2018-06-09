@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>这是他的github头像</p>
+		<img src="https://avatars1.githubusercontent.com/u/31435638?s=460&v=4" alt="github头像不让看" style="width: 200px;height: 200px ; border: 1px solid #E01003 ;" />
+		<h1>觉得很帅很帅请点赞</h1>
+		<br />
+		<div id="btn" style="width: 40%;heigth:50px;background-color: greenyellow;text-align: center; margin-left: 30%;">
+			请疯狂的点赞<span id="good_count">0</span>
+		</div>
+
+	</body>
+
+	<script>
+		/*
+				{//这样的方式发现不能实现效果
+					
+					let btn =document.getElementById("btn");
+					let good_count	= document.getElementById("good_count");
+					
+					btn.onclick=function(){
+						let count =0;
+						count++;
+						alert(count);
+						good_count.innerHTML =	count;
+						
+						
+					}
+				}*/
+
+		//改良方式1
+		/*
+		{
+			let btn =document.getElementById("btn");
+			let good_count	= document.getElementById("good_count");
+			
+			let count =0;
+			btn.onclick=function(){
+				count++;
+				alert(count);
+				good_count.innerHTML =	count;	
+			}
+		}*/
+
+		//改良方式2
+		/*
+		{
+			let btn =document.getElementById("btn");
+			let good_count	= document.getElementById("good_count");
+			
+			(function(){
+				let count =0;
+				btn.onclick=function(){
+				count++;
+				//alert(count);
+				good_count.innerHTML =	count;	
+			};
+			})();
+		}
+		*/
+
+		/*
+		{
+			let btn =document.getElementById("btn");
+			let good_count	= document.getElementById("good_count");
+			btn.onclick=(function(){
+				let count =0;
+				//alert(count);
+				return function(){
+					count++;
+					good_count.innerHTML =	count;	
+				};
+			})();
+		}
+		*/
+		
+		{//这是一个有问题的写法，btn.onclick =function{}后边加上一个()表示执行return的函数
+			let btn = document.getElementById("btn");
+			let good_count = document.getElementById("good_count");
+			btn.onclick = function() {
+				var count = 0;//btn.onclick方法私有变量，
+				alert(count);//在这个方法的上下文环境中， 返回了一个引用型数据类型的数据，但是return回去的方法没有被调用之行
+				return function() {
+					count++;
+					good_count.innerHTML = count;
+					alert("嘻嘻嘻");
+				};
+			}();
+		}
+
+
+		//改良方式3
+		/*
+		{
+			let btn =document.getElementById("btn");
+			let good_count	= document.getElementById("good_count");
+			
+			btn.onclick=function(){
+				
+				//console.log(good_count.innerHTML);
+				//let n = Number(good_count.innerHTML);
+				//good_count.innerHTML =	n+1;
+				
+				//good_count.innerHTML =Number(good_count.innerHTML)+1;
+				//good_count.innerHTML =parseInt(good_count.innerHTML)+1;
+				
+				good_count.innerHTML++;
+			}	
+		}
+		*/
+		
+		//方式4-----最优
+		/*
+		{
+			let btn =document.getElementById("btn");
+			let good_count	= document.getElementById("good_count");
+			
+			btn.count =0;
+			btn.onclick=function(){
+				//this.count++;
+				//good_count.innerHTML =btn.count;
+				
+				//good_count.innerHTML =this.count;
+				
+				good_count.innerHTML =++this.count;	
+			}
+
+		}*/
+	</script>
+
+</html>
