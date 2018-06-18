@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+	<body>
+		<h1>将类数组对象转为数组</h1>
+		<p>类数组对象</p>
+			<ul name='bigs'>
+				<li>arguments</li>			
+				<li>HTMLCollection<sup>getElementsByName()</sup></li>
+				<li>NodeList<sup>getElementsByName()</sup></li>				
+			</ul>
+		
+		<hr />
+		<i>借用数组对象的方法操作<b>arguments</b>在任何浏览器下都兼容使用，但是<b>HTMLCollection</b>和<b>NodeList</b>不行</i>
+			
+	</body>
+	<script>
+		{
+			let lis = document.getElementsByTagName("li");
+			let names = document.getElementsByName("bigs");
+			
+			//将类数组转为数组
+			let arr_lis = [].slice.call(lis);
+			let arr_names = [].slice.call(names);			
+			console.log(arr_lis,arr_names);		
+			
+		}
+	</script>
+</html>

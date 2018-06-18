@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		<h3>正则懒惰性的原因：</h3>
+		<div>
+			<p>lastIndex是正则每次捕获的字符串中开始查找的位置</p>
+			<p>懒惰模式下，这个lastIndex的值是不发生变化的</p>
+			<p>所以：每次查找的都是相同的位置，结果也就相同了</p>
+		</div>
+		
+	</body>
+	<script>
+		console.log("---------正则的懒惰性------------");
+		{
+			//出现的情况
+			/*
+				每次执行exec的时候，正则只捕获第一个匹配的内容，在不进行任何处理的情况下，
+				执行多次exec，都捕获的是第一次捕获的内容
+			*/
+			let reg =/\d+/;
+			
+			//第1次执行exec
+			let arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr);//["1993", index: 5, input: "时间如流水1993我不能着急0515欲速则不达", groups: undefined]
+			console.log(arr[0]);//1993
+			console.log(reg.lastIndex);//0
+			
+			//第2次执行exec
+			arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr[0]);//1993
+			console.log(reg.lastIndex);//0
+			
+			//第3次执行exec
+			arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr[0]);//1993
+			console.log(reg.lastIndex);//0
+		}
+		
+		console.log("---------正则的懒惰性解决方法 ：正则末尾加g(全局修饰符)------------");
+		{
+			//解决正则的懒惰性
+			let reg =/\d+/g;
+			//第1次执行exec
+			let arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			//console.log(arr);//["1993", index: 5, input: "时间如流水1993我不能着急0515欲速则不达", groups: undefined]
+			console.log(arr[0]);//1993
+			console.log(reg.lastIndex);//0
+			
+			//第2次执行exec
+			arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr[0]);//1993
+			console.log(reg.lastIndex);//0
+			
+			//第3次执行exec
+			arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr);//null
+			console.log(reg.lastIndex);//0
+			
+			//第4次执行exec  返回null之后，再次执行捕获的话，又会重新开始捕获	
+			/*
+			arr = reg.exec("时间如流水1993我不能着急0515欲速则不达");
+			console.log(arr[0]);//null
+			console.log(reg.lastIndex);//0
+			*/
+		}
+		
+		console.log("---------一次性捕获所有------------");
+		{
+			//自己写的一次性捕获所有			
+			function getAllReg(reg,str){
+				//捕获一次
+				let result=[];
+				let arr =[];
+				arr=reg.exec(str);//
+				while(arr){//如果不为null，就继续
+					result.push(arr[0]);
+					arr=reg.exec(str);
+				}
+				return result;				
+			}
+			
+			let reg =/\d+/g;
+			let str="时间如流水1993我不能着急0515欲速则不达";
+			//测试方法
+			console.log(getAllReg(reg,str));//["1993", "0515"]
+		}
+	</script>
+</html>

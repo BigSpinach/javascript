@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSinach</title>
+	</head>
+	<body>
+		<h1>构造函数模式</h1>
+		<p></p>
+	</body>
+	<script>
+		{
+			//构造函数模式
+			function MyConstructor(name,age){
+				//let obj ={};
+				this.name=name;
+				this.age=age;
+				this.say=function(){
+					console.log("我是"+this.name+",我"+this.age+"岁了。");
+				}
+				
+			};
+			
+			//执行
+			let myCon1 = new MyConstructor("BigSpinach",26);
+			myCon1.say();
+		}
+		
+	</script>
+</html>

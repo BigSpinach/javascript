@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		{
+			Array.prototype.myUnique = function myUnique() {
+			
+				var obj = {};
+				for(var i = 0; i < this.length; i++) {
+					//获取当前项
+					//判断obj中是否已存在当前项的值
+					//如果存在
+					//将当前项设置为数组的最后一项，然后删除数组的最后一项，并且-1修正数组的长度
+					//否则
+					//将当前项的值添加到obj中
+					var now = this[i];
+					if(obj[now] == this[i]) {
+						this[i] = this[this.length - 1];
+						this.length--;
+						i--;
+						continue;
+					}
+					obj[now] = now;
+				}
+				obj=null;//不加这句会有内存泄漏的问题
+				return this;
+
+			};
+
+			//测试
+			var ary = [12, 23, 13, 23, 12, 12, 12, 13, 23, 2, 31, 14];
+			console.log(ary.myUnique().sort(function(a, b) {
+				return a - b;
+			}));
+			//console.log(myUnique());
+		}
+	</script>
+
+</html>

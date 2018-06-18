@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<!--<script scr="js/utils.js"></script>-->
+		<link rel="stylesheet" href="css/reset.css" />
+	</head>
+
+	<body>
+		<h1>json的操作</h1>
+		<hr />
+		<ol>
+			<li>
+				window对象下有一个JSON属性，该属性下有两个方法
+			</li>
+			<li>
+				1. JSON.parse() 把json格式的字符串转为json对象
+			</li>
+			<li>
+				2.JSON.stringify() 把json对象转为json格式的字符串
+			</li>
+		</ol>
+
+	</body>
+	<script>
+		
+			//window对象下有一个JSON属性，该属性下有两个方法
+			//1. JSON.parse()   把json格式的字符串转为json对象
+			//2.JSON.stringify()  把json对象转为json格式的字符串
+
+			//来，上手试一试
+			let arr = [{
+				name: "刘大凯",
+				age: 26
+			}, {
+				name: "刘炸凯",
+				age: "24"
+			}, {
+				name: "刘小凯",
+				age: 13
+			}];
+			
+			
+			//JSON.parse(str);
+			//JSON.stringify(str)
+			console.log(window.JSON.stringify(arr));
+			let str =JSON.stringify(arr);
+			
+			console.log(JSON.parse(str));
+			
+	</script>
+
+</html>

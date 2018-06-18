@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>利用try...catch的原理实现浏览器不报错的兼容写法</h1>
+		<ul name='bigs'>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</body>
+	<script>
+		var utils = {
+			listToArray: function(likeArray) {
+				let arr = [];
+				try {
+					arr = [].slice.call(likeArray);
+				} catch(e) {
+
+					for(let i = 0; i < likeArray.length; i++) {
+						arr[i] = likeArray[i];
+					}
+				}
+				return arr;
+			}
+		}
+
+		//测试
+		let lis = document.getElementsByTagName("li");
+		console.log(utils.listToArray(lis));
+	</script>
+
+</html>

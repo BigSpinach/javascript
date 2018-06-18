@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		<h1>match和exec的区别</h1>
+		
+		<p>
+			<b>在正则分组，并且字符串有多个匹配结果的情况下：</b>
+			match捕获的结果只是大正则所匹配的所有结果，
+			exec捕获的是大正则和小正则的结果
+			
+		</p>
+		<pre>
+			let reg =/liukai(\d+)/g;
+			let str = "liukai123liukai456liukai789"
+			
+			//使用match捕获
+			let arr=str.match(reg);
+			console.log(arr);//["liukai123", "liukai456", "liukai789"]
+			
+			//使用exec捕获
+			let arr1= reg.exec(str);
+			console.log(arr1);// ["liukai123", "123", index: 0, input: "liukai123liukai456liukai789", groups: undefined]
+			arr1= reg.exec(str);
+			console.log(arr1);// ["liukai456", "456", index: 9, input: "liukai123liukai456liukai789", groups: undefined]	
+			arr1= reg.exec(str);
+			console.log(arr1);//["liukai789", "789", index: 18, input: "liukai123liukai456liukai789", groups: undefined]
+		</pre>
+	</body>
+	<script>
+		let reg =/liukai(\d+)/g;
+		let str = "liukai123liukai456liukai789"
+		
+		//使用match捕获
+		let arr=str.match(reg);
+		console.log(arr);//["liukai123", "liukai456", "liukai789"]
+		
+		//使用exec捕获
+		let arr1= reg.exec(str);
+		console.log(arr1);// ["liukai123", "123", index: 0, input: "liukai123liukai456liukai789", groups: undefined]
+		arr1= reg.exec(str);
+		console.log(arr1);// ["liukai456", "456", index: 9, input: "liukai123liukai456liukai789", groups: undefined]	
+		arr1= reg.exec(str);
+		console.log(arr1);//["liukai789", "789", index: 18, input: "liukai123liukai456liukai789", groups: undefined]
+		
+	</script>
+</html>

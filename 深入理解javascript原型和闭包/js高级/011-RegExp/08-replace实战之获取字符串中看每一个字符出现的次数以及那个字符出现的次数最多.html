@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		<h1>获取字符串中看每一个字符出现的次数以及那个字符出现的次数最多</h1>
+		
+	</body>
+	<script>
+		{
+			let str="I'm BigSpinach,BigSpinach love program";
+			//let reg = /('){1}|(\D){1}|(\s){1}/;
+			let reg = /(\D){1}|(\s){1}/g;
+			var obj={};
+			let result = str.replace(reg,function(largeReg,smallReg,index,input){
+				//获取到每一个字符
+				//console.log(arguments);//["I", "I", undefined, 0, "I'm BigSpinach,BigSpinach love program", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+				var character = arguments[0];
+				//console.log(smallReg);===arguments[1]
+				//将每一个字符当做obj的一个属性添加进去
+				/*if(obj[character]>=1){
+					obj[character]+=1;
+				}else{
+					obj[character]=1;
+				}*/
+				obj[character]>=1?obj[character]+=1:obj[character]=1;
+				
+				
+			});
+			//console.log(obj);//{I: 1, ': 1, m: 2, " ": 3, B: 2, …}
+			//console.log(result);
+			
+			//用假设法找出最大的value
+				let maxNum =0;
+				for(let key in obj){
+					obj[key]>maxNum?maxNum=obj[key]:null;
+				}
+				//console.log(maxNum);
+				//把所有符合maxNum的key都找到
+				let arr = [];
+				for (let key in obj) {
+					obj[key]==maxNum? arr.push(key):null
+				}
+				//console.log(arr);
+				console.log("最多出现的字符是："+arr.toString()+";次数是："+maxNum+"。");
+		}
+		
+	</script>
+</html>

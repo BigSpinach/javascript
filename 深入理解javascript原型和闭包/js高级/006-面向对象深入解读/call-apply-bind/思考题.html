@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>原型深入-call方法</h1>
+		<pre>
+			Function.prototype.call = function(context){
+				//call方法的作用就是让调用    A.call() 中的A的‘this关键字’变为context
+				//然后让A()执行
+				
+				//第一步，改变this(也就是A) 方法中的 ‘this的关键字’ 为 context
+				eval(call.toString.replace('this',"context"));
+				
+				//第二步：让this执行，（也就是A执行）
+				this();			
+			}
+			
+		</pre>
+	</body>
+	<script>
+		function fn1() {
+			console.log(1);
+		}
+
+		function fn2() {
+			console.log(2);
+		}
+		fn1.call(fn2);//this=>fn2  1
+		//执行原理：让call执行(call方法的最有用就是，让this的关键字改变（交换一下）)，然后让this.call()中的this方法执行一次
+		fn1.call.call.call(fn2);//2
+		//让最后一个call方法执行，改变fn1.call.call中this为fn2，
+		//然后有fn1.call.call执行一次，也就是fn2执行一次
+		Function.prototype.call(fn2);//不执行
+		//让Function.prototype的this变为fn2，然后让Function.prototype执行一次，空函数执行，啥也没有，内存直接销毁
+		Function.prototype.call.call.call(fn2);//执行fn2
+		//让Function.prototype.call.call 的this变为fn2，
+		//然后Function.prototype.call再次call，就是让fn2执行，
+	</script>
+
+</html>

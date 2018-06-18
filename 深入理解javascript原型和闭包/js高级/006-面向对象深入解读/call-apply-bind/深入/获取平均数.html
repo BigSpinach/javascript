@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+	<body>
+		<h1>获取平均数</h1>
+		
+		
+		<p>利用eval求arr数组每一项的和</p>
+		<pre>
+			eval(arr.jion('+'))
+		</pre>
+	</body>
+	<script>
+		/*{
+			//第一种：给定一组数，去掉最大和最小，然后求平均数
+			let arr =[12,13,2,25,9,5];
+			arr.sort(function(a,b){return a-b;});
+			
+			//arr.pop();
+			//arr.shift();
+			
+			
+			//splice(n,m)  //从n索引删到m索引，返回删除的元素
+			arr.splice(0,1);
+			//arr.splice(arr.length-1,arr.length);
+			arr.splice(arr.length-1);
+			//console.log(arr);
+			
+			//将新数组的每一项加起来÷arr.length
+			let total =0;
+			for (let i =0;i<arr.length;i++) {
+				total+=arr[i];	
+			}
+			let mean =total/arr.length;
+			console.log(mean);
+		}
+		*/
+		{
+			//第二种，传递的不是一个数组，而是形参
+			function getMean(){
+				//第一步：将arguments类数组对象转为数组
+				let arr=[];
+				for (let a=0;a<arguments.length;a++) {
+					arr[a]=arguments[a];
+				}
+				//console.log(arr);// [1, 2, 34, 4]
+				arr.pop();
+				arr.shift();
+				//console.log(arr);// [2, 34]
+				let total =0;
+				for (let a=0;a<arr.length;a++) {
+					total+=arr[a];
+				}
+				
+				return total/arr.length;
+			}
+			
+			let a  = getMean(1,2,34,4);
+			console.log(a);
+		}
+	</script>
+</html>

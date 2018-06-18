@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+
+	<body>
+		<h1>try...catch</h1>
+
+	</body>
+	<script>
+		/*{
+			try { //可能出错的代码
+				console.log(xxx);
+
+			} catch(e) { //形参必须要写，一般写e---event
+				console.error(e.message); //可以获取到报错的原因
+			} finally {
+				//不管try中的代码是否保持，这里的代码都要执行
+				console.info("finally里的一定要执行");
+			}
+			console.log("OK");
+		}*/
+		
+		{//手动抛出异常
+			try { //可能出错的代码
+				console.log(xxx);
+
+			} catch(e) { //形参必须要写，一般写e---event
+				//throw new Error("当前网络忙，请稍后...");
+				//throw new ReferenceError("引用错误");
+				//throw new TypeError("类型错误");
+				throw new RangeError("范围错误");
+			} finally {
+				//不管try中的代码是否保持，这里的代码都要执行
+				//console.info("finally里的一定要执行");
+			}
+			console.log("OK");
+		}
+	</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>假设法的编程思想</h1>
+		<hr />
+		<div style="width=100%;height：auto; margin: 0 10%;">
+			<h3>找出数组中的最大值和最小值</h3>
+			<p>[10,12,23,25,62,12,34]</p>
+			<b>假设的思想</b>
+			<p>假设第一个元素就是最大（最小）值，然后，将他跟下一个比较，如果为true，返回本身，否则返回后一个</p>
+		</div>
+
+		<br />
+		<hr />
+		<div style="width=100%;height：auto; margin: 0 10%;">
+			<h3>找出数组中的最大值和最小值</h3>
+			<p>[10,12,23,25,62,12,34]</p>
+			<b>利用Math的max和min方法</b>
+			<p>
+				<ul>
+					<li>1.把数组转为字符串</li>
+				</ul>
+			</p>
+		</div>
+	</body>
+	<script>
+		/*{
+					let arr=[10,12,23,25,62,12,34];
+					function getNumber(arr){
+						let max = arr[0];
+						let min =arr[0];
+						for (let i=1;i<arr.length;i++) {
+							let num=arr[i];
+							max<num?max=num:max;
+							min>num?min=num:min;				
+						}
+					console.log(max,min);
+						
+					}
+					
+					getNumber(arr);
+				}*/
+
+		{
+			//利用Math的max和min方法
+			let arr = [10, 12, 23, 25, 62, 12, 34];
+
+			let str = arr.toString();
+
+			//console.log(Math.max(str));//NaN
+			//console.log(Math.max(1,2,3));//3
+
+			//字符串拼接的方式--方式1
+			//console.log(eval("Math.max("+str+")"));
+			//console.log(eval("Math.min("+str+")"));
+
+			//利用apply方法---方式二
+			var max = Math.max.apply(null,arr);
+			//让Math.max中的this指向null ，并且让Math.max执行，参数是arr数组
+			var min = Math.min.apply(null,arr);
+
+			console.log(max);
+			console.log(min);
+
+		}
+	</script>
+
+</html>

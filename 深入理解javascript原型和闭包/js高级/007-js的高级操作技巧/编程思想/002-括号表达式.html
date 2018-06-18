@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+
+	</body>
+	<script>
+		{
+			function fn1() {
+				console.log(this);
+			};
+
+			function fn2() {
+				console.log(this);
+			};
+
+			obj = {
+				fn2: fn2
+			};
+			//括号表达式
+			//要点一：括号表达式中的多项，结果只去执行最后一项的结果
+			//console.log((1, 2, 3)); //3
+			//console.log((1, 2)); //2
+			//console.log((1)); //1
+
+			//console.log((fn1, fn2)); //function fn2(){...}
+
+
+			//要点二:括号表达式会改变this的指向
+			//第一种情况 ，有多项
+			(fn1,obj.fn2)();//this=>window  //将obj.fn2复制一份，然后执行
+			//第二种情况，只有一项
+			(fn2)();//window
+			(obj.fn2)();//{fn2: ƒ}
+			
+
+		}
+	</script>
+
+</html>
