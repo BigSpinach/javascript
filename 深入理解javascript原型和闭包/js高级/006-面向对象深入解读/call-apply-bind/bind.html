@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>bind</h1>
+		<h3>bind在IE6~8下不兼容</h3>
+		<p>bind改变this的原理是: 预先让fn的this指向obj，并且把a,b传递给fn，
+		<b>注意:</b>此时的fn没有执行(只有执行了，this和实参才起作用)</p>
+		
+		<hr />
+		<button id="btn">点我改变fn的this指向</button>
+		
+	</body>
+	<script>
+		{
+			//bind在IE6~8下不兼容
+			//bind改变this的原理是: 预先让fn的this指向obj，并且把a,b传递给fn，
+			//注意 ：此时的fn没有执行(只有执行了，this和实参才起作用)
+		
+			//场景，点击box，干煸this的指向
+			let btn =document.getElementById("btn");
+			obj={
+				x:250,
+				name : "bigspinach"
+			}
+			function fn(){
+				alert('执行了fn，'+"this指向："+this+"，obj的name："+this.name);
+			}
+			//bind的方式
+			
+			//btn.onclick=fn;//点击就执行fn，此时的this指向btn
+			//btn.onclick=fn.call(obj);//此时不用点击btn就执行了方法
+			
+			btn.onclick = fn.bind(obj);
+			
+			
+		}
+	</script>
+
+</html>

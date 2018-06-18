@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "shopname":"微星游戏本旗舰店",
+    "title": "MSI/微星 GS65 8RF-012CN 酷睿8代 GTX1070 8G独显轻薄游戏本",
+    "price": 16999.00,
+    "credit":28,
+    "time": "2017-03-15",
+    "saler":57,
+    "hot": 198,
+    "img": "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i2/116784854/TB2ik03suGSBuNjSspbXXciipXa_!!0-saturn_solar.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 2,
+    "shopname":"微星游戏本旗舰店",
+    "title": "MSI/微星 GL62M 7REX-1252GTX1050Ti 4G独显吃鸡游戏本笔记本电脑",
+    "price": 9299.00,
+    "time": "2017-02-08",
+     "saler":197,
+      "credit":26,
+    "hot": 25,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i4/2943026087/TB2eIPBw1uSBuNjSsplXXbe8pXa_!!2943026087-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 3,
+    "shopname":"微星游戏本旗舰店",
+     "credit":3332,
+    "title": "MSI/微星 GP63 8RE-006CN 8代i7 GTX10606G独显游戏笔记本电脑",
+    "price": 9899.00,
+     "saler":130,
+    "time": "2017-01-25",
+    "hot": 568,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i2/2943026087/TB2hi.GwH1YBuNjSszeXXablFXa_!!2943026087-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 4,
+    "shopname":"msi微平专卖店",
+     "credit":28231,
+    "title": "MSI/微星 GE63VR 7RF-004酷睿i7 GTX1070 8G独显游戏本笔记本电脑",
+    "price": 10999.00,
+    "time": "2016-12-30",
+    "hot": 20000,
+     "saler":137,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i4/1712998888/TB2npfgwFmWBuNjSspdXXbugXXa_!!1712998888-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 5,
+     "credit":28134,
+     "shopname":"微星游戏本旗舰店",
+    "title": "MSI/微星 GP72MVR 7RFX-621CN GTX1060 6G独显游戏本笔记本电脑",
+    "price": 8599.00,
+    "time": "2016-01-30",
+    "saler":216,
+    "hot": 1032654,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i2/2943026087/TB2fqRixeGSBuNjSspbXXciipXa_!!2943026087-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 6,
+    "shopname":"微星游戏本旗舰店",
+     "credit":208,
+    "title": "MSI/微星 GS65 8RF-012CN 酷睿8代 GTX1070 8G独显轻薄游戏本",
+    "price": 16999.00,
+    "time": "2018-01-01",
+    "hot": 1,
+     "saler":57,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i4/2943026087/TB2GTnSuGmWBuNjy1XaXXXCbXXa_!!2943026087-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 7,
+    "shopname":"微星微科龙盾专卖店",
+     "credit":282,
+    "title": "MSI/微星 GV62 8RD-097CN GTX1050Ti独显8代i5吃鸡游戏笔记本电脑",
+    "price": 6388.00,
+    "time": "2017-02-19",
+    "hot": 400,
+    "saler":127,
+    "img": "https://g-search3.alicdn.com/img/bao/uploaded/i4/i3/2770609969/TB2eNKzw9BYBeNjy0FeXXbnmFXa_!!2770609969-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 8,
+    "shopname":"微星微科龙盾专卖店",
+     "credit":2821,
+    "title": "MSI/微星 GS65 8RF-012CN 酷睿8代I7轻薄便携游戏笔记本手提电脑",
+    "price": 16999.00,
+    "time": "2017-01-25",
+    "hot": 240,
+    "saler":47,
+    "img": "https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/2770609969/TB2rMQ0u1uSBuNjSsplXXbe8pXa_!!2770609969-0-item_pic.jpg_250x250.jpg_.webp"
+  },
+  {
+    "id": 9,
+     "shopname":"微星旗舰",
+    "title": "MSI微星宙斯盾Aegis3电竞i7游戏i5电脑主机1070吃鸡台式整机7代",
+    "price": 6799.00,
+    "saler":9,
+    "time": "2014-01-01",
+    "hot": 12345678,
+     "credit":128,
+    "img": "https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/671257335/TB13X0Pl2uSBuNkHFqDXXXfhVXa_!!0-item_pic.jpg_250x250.jpg_.webp"
+  }
+]

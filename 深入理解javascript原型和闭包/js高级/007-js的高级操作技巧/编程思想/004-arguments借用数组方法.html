@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>arguments借用数组方法的原理</h1>
+		<p>第一步：Array.prototype.slice方法的原理</p>
+		<pre>
+			function slice(){
+				//this指的是调用slice方法的那个数组
+				let arr = [];
+				for(let i=0;i<this.length;i++){
+					arr[i] =this[i];
+				}
+				//完成克隆
+				return arr;
+			}
+		</pre>
+		<hr />
+		<p>第二步：将arguments转为数组的原理</p>
+		<pre>
+			function slice(){
+				//this指的是调用slice方法的那个数组
+				let arr = [];
+				for(let i=0;i<arguments.length;i++){
+					arr[i] =arguments[i];
+				}
+				//完成克隆
+				return arr;
+			}
+		</pre>
+		<br />
+		<p>比较发现就this不同，所以我们可以使用call/apply的方法改变其代码中的this指向，让他指向arguments即可</p>
+		<p>所以就有：Array.prototype.slice.call(arguments);</p>
+
+		<hr />
+		<p><b>同理：</b>有[].sort.call(arguments,function(a,b){return a-b;})</p>
+		<p><b>同理：</b>有[].shift.call(arguments)</p>
+		<p><b>同理：</b>有[].pop.call(arguments)</p>
+
+	</body>
+	<script>
+		function getMean() {
+			//第一步：将arguments类数组对象转为数组
+			//let arr = [];
+			//for(let a = 0; a < arguments.length; a++) {
+				//arr[a] = arguments[a];
+			//}
+			//借用原型slice方法,实现将类数组转为数组
+			//let arr = Array.prototype.slice.call(arguments);
+			//let arr = [].slice.apply(arguments);
+			[].sort.call(arguments,function(a,b){return a-b;});
+			//console.log(arr); // [1, 2, 34, 4]
+			//arr.pop();
+			//arr.shift();
+			
+			[].pop.call(arguments);
+			[].shift.call(arguments);
+			//console.log(arr);// [2, 34]
+			
+			//let total = 0;
+			//for(let a = 0; a < arr.length; a++) {
+				//total += arr[a];
+			//}
+
+			return (eval([].join.call(arguments,"+"))).toFixed(2);
+		}
+
+		let a = getMean(1, 2, 34, 4,3,46);
+		console.log(a);
+	</script>
+
+</html>

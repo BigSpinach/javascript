@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		<h1>正则捕获方式3---replace</h1>
+		
+	</body>
+	<script>
+		{
+			//str.replach(a,b)的原理
+			//把字符串str中a样式的字符串用b替换掉-------他只替换一次
+			let str ="BigSpinach love program";
+			//需求把所有的i替换成  “哈哈”
+			let result= str.replace("i","哈哈");
+			console.log(result);//B哈哈gSpinach love program
+			
+			//replace他是懒惰的，不会搞后边的
+			let result2= str.replace("i","哈哈");
+			console.log(result2);//B哈哈gSpinach love program	
+		}
+		console.log("-----------replace中使用正则-----------");
+		{
+			//replace中使用正则
+			let str ="BigSpinach love program";
+			let reg = /i/g;
+			let result = str.replace(reg,"哈哈");
+			console.log(result);//B哈哈gSp哈哈nach love program
+		}
+		
+		console.log("-----------replace中使用正则进阶-----------");
+		{
+			let str ="BigSpinach love program";
+			let reg = /i/g;
+			let result = str.replace(reg,function(){
+				console.log(arguments);//这里会执行两次是因为正则匹配到了两次 i
+				//Arguments(3) ["i", 1, "BigSpinach love program", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+				//Arguments(3) ["i", 5, "BigSpinach love program", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+				return "123";
+			});
+			console.log(result);//B123gSp123nach love program
+			/*replace的关键点
+				1.function()函数执行几次取决于字符串中的字符跟正则匹配成功了几次
+				2.function()中的arguments输出的结果跟 reg.exec捕获到的结果非常的相似，
+					即使正则分组，我们也可以通过arguments获取到分组捕获的内容
+				3.在function中的return，return的是啥，就表示用啥替换掉当前大正则所捕获到的内容		 
+			*/
+		}
+		
+		console.log("-----------replace中使用正则实战-----------");
+		{
+			//let str = new Date;
+			//console.log(str);//Mon Jun 18 2018 02:03:29 GMT+0800 (中国标准时间)
+			let str = "20180618";
+			let arr=["零","壹","贰","叁","肆","伍","陸","柒","捌","玖"];
+			let reg = /\d/g;
+			let result = str.replace(reg,function(){
+				return arr[arguments[0]];
+			});
+			console.log(result);//贰零壹捌零陸壹捌
+		}
+	</script>
+</html>

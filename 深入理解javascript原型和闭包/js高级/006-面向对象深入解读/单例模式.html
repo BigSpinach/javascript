@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+
+	<body>
+		<h1>单例模式</h1>
+	</body>
+	<script>
+		//普通单例模式
+		{
+			//=>项目主管（开发人员）：公共模块 
+			var utils = {
+				trim: function() {}
+			};
+			//=>陆永勇：搜索模块
+			var searchModel = {
+				submit: function() {
+					utils.trim();
+				},
+				...
+			};
+			//=>唐元帅：天气模块
+			var weatherModel = {
+				setWeather: function() {},
+				...
+			};
+			//=>陈金广：频道模块
+			var channelModel = {
+				show: function() {
+					//=>在当前的命名空间下调取其它命名空间的方法：指定好对应的命名空间名字即可，使用 [NameSpace].[property] 就可以操作了 searchModel.submit(); 
+					//=>调取本模块中的一些方法，可以直接使用THIS处理即可：此方法中的THIS一般都是当前模块的命名空间
+					this.setChannel();
+				},
+				setChannel: function() {},
+				...
+			};
+			channelModel.show();
+		}
+
+		{
+			//###高级单例模式
+
+			/*	基于JS高阶编程技巧 `惰性思想`来实现的单例模式， 并且可以把一些常用的设计模式（ 例如： `命令模式、发布订阅设计模式、promise设计模式`
+			等） 融合进来， 最后清晰的规划我们的业务逻辑代码， 方便后期二次开发和维护， 这种设计思想综合体就是高级单例模式， 也是项目中最常应用的
+			*/
+
+			var searchModel = (function() {
+				var $searchPlan = $.Callbacks();
+
+				function submit() {
+					...
+				}
+				$searchPlan.add(submit);
+
+				function fn() {
+					...
+				}
+				$searchPlan.add(fn);
+
+				return {
+					init: function() {
+						$searchPlan.fire();
+					}
+				}
+			})();
+			searchModel.init();
+
+		}
+	</script>
+
+</html>

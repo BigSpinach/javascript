@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>04-字符串的match方法实现捕获</h1>
+		<p>str.match(reg)------>把所有的和正则匹配的内容都捕获到</p>
+
+		<p><b>缺点：</b>match只能捕获到大正则匹配的内容，小正则的内容捕获不到</p>
+	</body>
+	<script>
+		console.log("---------字符串的match方法捕获------------"); {
+			let reg = /\d+/g;
+			let str = "时间如流水1993我不能着急0515欲速则不达";
+
+			let result = str.match(reg);
+			console.log(result); //Array["1993","0515"]
+
+		}
+	</script>
+
+</html>

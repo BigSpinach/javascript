@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>随堂笔记[11-04]</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h2 id="随堂笔记11-04">随堂笔记[11-04]</h2>
+
+<p></p>
+
+
+
+<h3 id="面向对象的深入理解">面向对象的深入理解</h3>
+
+<blockquote>
+  <p><strong>JS中有很多的内置类：</strong> <br>
+  Number、String、Boolean、[Null、Undefined]、Object、Function、Array、RegExp、Date…</p>
+  
+  <p>每一个数字类型的值都是Number的实例，可以调取Number原型上提供的方法 <br>
+  … <br>
+  每一对象数据类型都是Object的实例，都可以调取Object.prototype上提供的方法（内置方法：toString、hasOwnProperty…，也可以自己在原型上扩展自定义的方法，这些方法我们的对象也可以使用） <br>
+  … <br>
+  每一个函数都是Function的实例，可以调用Function.prototype上的方法（call、apply、bind…）</p>
+  
+  <p><strong>哪些是函数？哪些是对象类型的值？</strong> <br>
+  [函数] <br>
+  普通函数、类（内置类、自己创建的类）</p>
+  
+  <p>[对象] <br>
+  {}普通对象、[]数组、/^$/正则、new Date创造的日期 <br>
+  Math、JSON… 这些在window中提供的对象 <br>
+  类数组也是对象</p>
+  
+  <p>汇总： <br>
+  所有类的实例都是对象类型的（特殊：使用字面量方式创建的基本数据类型不是对象） <br>
+  一些常用的对象方法（例如：Math是个对象，里面提供很多操作数字的方法…） <br>
+  xxx.prototype 以及 xxx.__proto__ <br>
+  函数也是对象 <br>
+  … <br>
+  <code>万物皆对象</code></p>
+</blockquote>
+
+<p><strong><code>函数的角色</code></strong></p>
+
+<blockquote>
+  <p>1、函数：普通函数、构造函数(类) <br>
+  2、对象</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">/*
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> * fn();//=&gt;普通函数
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> * new fn();//=&gt;构造函数,fn是类
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>*/
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//=&gt; fn instanceof Function =&gt;TRUE（说明它是个函数）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//=&gt; fn instanceof Object =&gt;TRUE（说明它也是一个对象）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;fn的结构</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>dir(fn)
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    [把其作为对象，内置的私有属性]
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>    name:<span class="hljs-string">'fn'</span> 函数名
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>    length:<span class="hljs-number">0</span> 形参的个数
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>    prototype:... fn作为类的时候，可以把一些公用的属性和方法写在原型上，供它的实例调用
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>    ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>    __proto__:<span class="hljs-built_in">Function</span>.prototype 它作为一个普通函数，它是<span class="hljs-built_in">Function</span>的实例，所以会指向<span class="hljs-built_in">Function</span>的原型
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        [公有的属性和方法]
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>        <span class="hljs-keyword">constructor</span>:Function
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>        call
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        apply
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>        bind
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>        __proto__:Object.prototype fn的原型链上有Object.prototype，也说明fn其实也是一个对象（但是它是Function的直属实例，两种角色中还是要以函数这个角色为主的）
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>            toString
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>            hasOwnProperty
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>            ...
+</div><div class="hljs-line"><span class="hljs-comment line-number">28.</span>            __proto__:null
+</div></code></pre></div></body></html>

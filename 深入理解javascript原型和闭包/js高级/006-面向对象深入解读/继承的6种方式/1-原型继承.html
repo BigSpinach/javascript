@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+
+	<body>
+		<h1>1.原型继承</h1>
+		<p><b>继承思想：</b> 让子类继承父类的一个实例
+		</p>
+		<hr />
+		<p><b>原型继承的核心：</b> 原型继承并不是把父类中的属性和方法克隆一份给子类， 而是让子类和父类之间增加原型链的链接，这样以后子类的实例对象在使用父类的方法的时候，通过__proto__向上一集一集查找即可
+			<i style="background-color: red;">注意：</i> 子类通过__proto__可以重写父类的方法，但是，重写父类的方法的严重后果是会影响到其他子类的实例对象的
+		</p>
+	</body>
+	<script>
+		//父类的构造
+		function Father() {
+			this.getX = function() {
+				console.log("我是Father构造函数的getX的方法");
+			}
+		}
+
+		//子类的构造
+		function Son() {
+			//啥方法都没写
+		}
+
+		//继承来了
+		Son.prototype = new Father();
+		Son.prototype.constructor = Son;//为了保持一致，不加这句话，他就指向了Object
+		
+		var s1 = new Son();
+		s1.getX();
+
+		//给子类添加自己的私有方法
+		//s1.say();//这里写会报错
+		Son.prototype.say = function() {
+			console.log("我是子类构造函数自己写的的私有方法say");
+		};
+		s1.say();
+	</script>
+
+</html>

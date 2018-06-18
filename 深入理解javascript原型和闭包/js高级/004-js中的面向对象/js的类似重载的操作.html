@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+	<body>
+		<h1>js中没有重载（预解释）</h1>
+		<p>任意数求和案例就类似一个重载的操作，根据传递的参数的不同，返回不同的结果</p>
+	</body>
+	<script>
+		{
+			//实现任意参数的求和
+			function mySum(){				
+				let args = arguments;
+				//console.log(args);
+				let total = 0;
+				for (let i = 0;i<args.length;i++) {
+					//return num+=agrs[i];
+					//args[i]的值是字符串，需要对这些字符串进行判断，数据类型转换
+					//let num= Number(args[i]);
+					let num= parseFloat(args[i]);
+				
+					/*if(typeof num == "number"){
+						total+=num;
+					}else{
+						total+=0;
+					}*/
+					if (!isNaN(num)) {
+						total+=num;
+					} else{
+						total+=0;
+					}
+					
+				}
+				return total;
+			}
+			
+			//测试
+			console.log(mySum());			
+			console.log(mySum(1));
+			console.log(mySum(1,2.23,3));
+			console.log(mySum(1,2));
+		}
+		
+		
+	</script>
+</html>

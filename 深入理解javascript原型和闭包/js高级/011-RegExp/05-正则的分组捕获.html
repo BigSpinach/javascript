@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+		<h1>05-正则的分组捕获</h1>
+
+	</body>
+	<script>
+		/**
+		 * 正则分组的作用：
+		 * 1.改变优先级
+		 * 2.分组的引用
+		 * 		\2:代表的是和第2个分组出现的字符一模一样
+		 * 		\1:代表的是和第1个分组出现的字符一模一样
+		 * 		\n:代表的是和第n个分组出现的字符一模一样
+		 * 3.分组的捕获：正则在捕获的时候，不仅仅把大正则的内容捕获到，而且还会把每一个小分组的内容捕获到
+		 * 
+		 * */
+		//身份证号码
+		let reg = /^(\d{6})(\d{4})(\d{2})(\d{2})\d{2}(\d)(X|\d)$/;
+		//            610126--1234---22-----22---55---5---x或2 
+		//				区号---年-----月-----日---不知道-男女--不知道
+		let str = "12345612342222555X";
+		let str2 = "2345612342222555X2";
+		
+		let arr = reg.exec(str);
+		let arr1 = reg.exec(str2);
+		console.log(arr); //["12345612342222555X", "123456", "1234", "22", "22", "5", "X", index: 0, input: "12345612342222555X", groups: undefined]
+		console.log(arr1); //null
+		
+		//使用match
+		let arr3 = str.match(reg);
+		console.log(arr3); //["12345612342222555X", "123456", "1234", "22", "22", "5", "X", index: 0, input: "12345612342222555X", groups: undefined]
+		//发现match跟reg.xexc捕获到的一模一样
+		//区别在哪？------- 倒数第三个小正则和倒数第一个我们不想要
+		//不要匹配它们  --（?:\d）小分组中加上？：  只匹配，不捕获
+		let reg2 = /^(\d{6})(\d{4})(\d{2})(?:\d{2})\d{2}(\d)(?:X|\d)$/;
+		let arr4 = reg2.exec(str);//(5) ["12345612342222555X", "123456", "1234", "22", "5", index: 0, input: "12345612342222555X", groups: undefined]
+		console.log(arr4); 
+		
+	</script>
+
+</html>

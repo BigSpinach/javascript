@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+
+	<body>
+
+	</body>
+	<script>
+		{ //sort的返回值
+			//			arr(function(a,b){
+			//				return a-b;//升序 ，返回的是负数
+			//				return b-a;//降序
+			//				return 1;//反转
+			//			});
+
+		}
+
+		{
+			//二维数组的排序
+			let arr = [{
+				name: "刘大凯",
+				age: 26
+			}, {
+				name: "刘炸凯",
+				age: "24"
+			}, {
+				name: "刘小凯",
+				age: 13
+			}];
+
+			//按照年龄升序排序
+			/*
+			arr.sort(function(a,b){
+				return parseFloat(a.age)-parseFloat(b.age);
+			});
+			console.log(arr);
+			*/
+			
+			//按照姓名升序排序		
+			arr.sort(function(a,b){
+				return a.name.localeCompare(b.name);
+			});
+			console.log(arr);
+		}
+	</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+	<body>
+		<h1>2-call方法继承</h1>
+		<p>核心：把父类中的方法和属性克隆一份给子类，作为子类的私有方法和属性</p>
+	</body>
+	
+	<script>
+		//父类的构造
+		function Father() {
+			this.getX = function() {
+				console.log("我是Father构造函数的getX的方法");
+			}
+		}
+		Father.prototype.getY=function(){
+			console.log("我是Father构造函数原型上的私有的getY方法");
+		}
+
+		//子类的构造
+		function Son() {
+			//使用call继承 apply 
+			//Father.call(this);//this指的是Son实例化的对象
+			Father.apply(this);//this指的是Son实例化的对象
+			//Father.bind(this);//bind不能使用
+			//使用apply继承父类的原型-*---不可以，会挂掉，说明只能向上一级继承，不能跨级继承
+			//Father.prototype.call(this);
+		}
+		
+		let son1 = new Son();
+		//son1.getX();
+		//son1.getY();//报错---因为他只能访问到父亲的私有属性和方法，父亲原型上的是不能访问的
+		//
+		let son2 = new Son();
+		son2.getX();
+	</script>
+</html>

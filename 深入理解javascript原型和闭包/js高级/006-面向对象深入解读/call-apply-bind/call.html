@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+	</head>
+	<body>
+		<h1>call</h1>
+		<pre>
+			fn.call(obj,parameters)
+			//执行fn方法，并将this=>obj  ,parameters为fn的参数列表
+		</pre>
+	</body>
+	<script>
+//		{
+//			//在非严格模式下
+//			function fn(a,b){
+//				console.log(this);
+//				
+//			}
+//			
+//			var obj={fn:fn};
+//			fn();//this=>window
+//			obj.fn();//this=>obj
+//			
+//			var opp={};
+//			//opp.fn();//报错
+//			fn.call(opp);//this=>opp;
+//			fn.call(opp,1,2);//this=>opp , a=1,b=2
+//			fn.call(1,2);//this=>1 , a=2,b=undefined
+//			
+//			
+//			//call方法的几个特殊性
+//			fn.call();//this=>window
+//			fn.call(undefined);//this=>window
+//			fn.call(null);//this=>window
+//			
+//			
+//		}
+"use strict";
+		console.log("------------上部分是非严格模式↑↑↑↑↑↑↑-------");
+		console.log("------------下部分是严格模式↓↓↓↓↓↓-------");
+		
+		{
+			
+			function fn(a,b){
+				console.log(this);
+				
+			}
+			
+			var obj={fn:fn};
+			//call方法的几个特殊性
+			fn.call();//this=>undefined
+			fn.call(undefined);//this=>undefined
+			fn.call(null);//this=>null
+			
+			
+		}
+	</script>
+</html>

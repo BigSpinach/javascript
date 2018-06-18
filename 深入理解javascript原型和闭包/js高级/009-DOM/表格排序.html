@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		
+		<table border="" cellspacing="0" cellpadding="0" id="tab">
+			<tr><th>2018-BigSpinach公司员工信息表</th></tr>
+			<tr><td>1</td></tr>
+			<tr><td>3</td></tr>
+			<tr><td>4</td></tr>
+			<tr><td>5</td></tr>
+			<tr><td>2</td></tr>
+			
+		</table>
+		
+	</body>
+	<script>
+		//对表格进行排序
+		let tab = document.getElementById("tab");
+		//alert(tab);
+		
+		//1.获取表格td元素集合对象
+		let tds =tab.getElementsByTagName('td');
+		//console.log(tds);
+		//2.将集合转为数组
+		let arr =[];
+		arr = [].slice.call(tds);
+		//console.log(arr);
+		
+		
+		//3.将数组按照升序排列
+		arr.sort(function(a,b){
+			return a.innerHTML - b.innerHTML;
+		});
+		console.log(arr);
+		
+		//4.将新数组追加到表格
+		var frg = document.createDocumentFragment();
+		let str='';
+		for (let i=0;i<arr.length;i++) {
+			//创建父级节点tr
+			let trs  =document.createElement("tr");
+		
+			trs.appendChild(arr[i]);
+			frg.appendChild(trs);
+		}
+		
+		tab.appendChild(frg);
+		frg=null;
+		
+		
+		
+	</script>
+</html>

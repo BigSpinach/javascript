@@ -1,0 +1,223 @@
+<!DOCTYPE html><html><head><title>专题汇总[this]</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h3 id="专题汇总this">专题汇总[this]</h3>
+
+<p></p>
+
+<blockquote>
+  <p>this：函数执行的主体，谁把函数执行的，谁就是执行的主体（和函数在哪执行的，以及在哪定义的没有直接的关系）</p>
+</blockquote>
+
+<p><strong><code>JS的非严格模式下</code></strong></p>
+
+<blockquote>
+  <p>1、给元素的某一个事件绑定方法，当事件触发，方法执行的时候，绑定的这个方法中的this一般是当前操作的这个DOM元素</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>oBox.onclick=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//=&gt;当绑定的方法执行，方法中的this:oBox</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//=&gt;如何让绑定的方法执行：</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-comment">//1、手动点击oBox,经由浏览器触发点击事件</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-comment">//2、oBox.onclick();</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-comment">//...</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;在IE6~8下，如果我们使用的是DOM2事件绑定，方法执行的时候，里面的this不是当前元素而是window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>oBox.attachEvent(<span class="hljs-string">'onclick'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    <span class="hljs-comment">//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>});
+</div></code></pre>
+
+<p>2、自执行函数执行，方法中的this一般都是window</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj={
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-attr">fn</span>:(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-comment">//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    })()
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>~<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-comment">//=&gt;this:window </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>}();
+</div></code></pre>
+
+<p>3、方法执行的时候，看方法名之前是否有<code>点</code>，有的话，<code>点</code>前面是谁this就是谁，没有的话，this是window</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<span class="hljs-attr">fn</span>:fn};
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>fn();<span class="hljs-comment">//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>obj.fn();<span class="hljs-comment">//=&gt;this:obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//============</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">//=&gt;数组通过原型查找机制，把Array.prototype上的slice方法找到，并且让方法执行，执行过程中实现数组的按索引查找操作</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>[].slice(); <span class="hljs-comment">//=&gt;this:[]</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>[].__proto__.slice();<span class="hljs-comment">//=&gt;this:[].__proto__</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-built_in">Array</span>.prototype.slice();<span class="hljs-comment">//=&gt;this:Array.prototype</span>
+</div></code></pre>
+
+<p>4、在构造函数执行的时候，函数体中的this都是当前类的实例</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//=&gt;this:当前Fn的实例(当前案例中指的是f)；而this.xxx=xxx都是给当前实例设置的私有属性；</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">this</span>.xxx=xxx;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> f=<span class="hljs-keyword">new</span> Fn();
+</div></code></pre>
+
+<p>5、使用Function.prototype上提供的call、apply、bind实现this改变</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj={<span class="hljs-attr">name</span>:<span class="hljs-string">'珠峰培训'</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">num1,num2</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">this</span>.total=num1+num2;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//=&gt;call基础语法的应用</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//fn(10,20);//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//obj.fn(10,20);//=&gt;obj中并没有fn这个属性,属性值是undefined,它不能作为函数执行,所以会报错：TypeError(undefined is not a function...)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>fn.call(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);<span class="hljs-comment">//=&gt;首先让fn中的this指向传递的第一个参数值obj,然后执行fn这个函数：此时fn中的this-&gt;obj num1-&gt;10 num2-&gt;20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>fn.call(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);<span class="hljs-comment">//=&gt;fn中的this:10 num1=20 num2=undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>fn.call();<span class="hljs-comment">//=&gt;fn中的this:window num1=num2=undefined  &lt;=&gt; fn()</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>fn.call(<span class="hljs-literal">null</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>fn.call(<span class="hljs-literal">undefined</span>);<span class="hljs-comment">//=&gt;第一个参数不管写的是null还是undefined都代表没有指向的this,所以函数中的this依然是window</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj={<span class="hljs-attr">name</span>:<span class="hljs-string">'珠峰培训'</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">num1,num2</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">this</span>.total=num1+num2;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//=&gt;apply的语法和作用 跟call基本上完全类似，只有一个区别</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>fn.call(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//&lt;=&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>fn.apply(obj,[<span class="hljs-number">10</span>,<span class="hljs-number">20</span>]); <span class="hljs-comment">//=&gt;apply方法调用的时候，第一个参数是this指向，第二个参数是一个数组，数组中包含了所有需要给函数传递的实参（语法要求是写成一个数组，但是和call一样也是一项项的给形参赋值的）</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//=&gt;当之前总结的所有THIS情况遇到call/apply的时候，都以call/apply指向的this为主</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>~<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//=&gt;this:obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}.call(obj);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);<span class="hljs-comment">//=&gt;slice中的this:arguments</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj={<span class="hljs-attr">name</span>:<span class="hljs-string">'珠峰培训'</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">num1,num2</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">this</span>.total=num1+num2;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//=&gt;bind的语法</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>fn.call(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);<span class="hljs-comment">//=&gt;改变fn中的this，而且把fn立即执行了</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>fn.bind(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);<span class="hljs-comment">//=&gt;虽然改变了fn中的this，但是并没有把fn执行，它属于预先处理this和实参，不会立即执行，只有达到某个特点条件，才会被触发执行的 (IE6~8不兼容)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//=====================</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-comment">//=&gt;真实项目中使用bind的意义</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-keyword">var</span> obj={<span class="hljs-attr">name</span>:<span class="hljs-string">'珠峰培训'</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">num1,num2</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    <span class="hljs-keyword">this</span>.total=num1+num2;
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span><span class="hljs-comment">//=&gt;需求：一秒后执行fn(定时器驱动),执行fn的时候,让fn中的this-&gt;obj,并且给fn传递两个实参10,20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>setTimeout(fn,<span class="hljs-number">1000</span>);<span class="hljs-comment">//=&gt;1S后确实执行了fn，但是此时fn中的this是window不是obj,而且没有传递10,20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>setTimeout(fn.call(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>),<span class="hljs-number">1000</span>);<span class="hljs-comment">//=&gt;虽然实现了THIS的改变和参数的传递，但是它是设置定时器的时候就把fn执行了,而不是等到1000MS后,1000MS后执行的是fn执行的返回结果</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>setTimout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>    <span class="hljs-comment">//=&gt;1000MS后执行的是匿名函数:我们可以在匿名函数里面把fn执行，并且实现需求</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>    fn.call(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>},<span class="hljs-number">1000</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>setTimout(fn.bind(obj,<span class="hljs-number">10</span>,<span class="hljs-number">20</span>),<span class="hljs-number">1000</span>);<span class="hljs-comment">//=&gt;或者使用bind预处理（不兼容）</span>
+</div></code></pre>
+
+<p>6、在ES6中，新增加了箭头函数，箭头函数中没有执行主体，箭头的函数中的this会继承它宿主环境中的this</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj={
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-attr">fn</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-comment">//=&gt;this:obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            <span class="hljs-comment">//=&gt;this:window 不管在哪执行，定时器中的this是window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        },<span class="hljs-number">1000</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-comment">//=&gt;想让定时器函数中的this也是obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>            <span class="hljs-comment">//=&gt;this:obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        }.bind(<span class="hljs-keyword">this</span>),<span class="hljs-number">1000</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>        <span class="hljs-keyword">var</span> _this=<span class="hljs-keyword">this</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>            <span class="hljs-comment">//=&gt;_this:obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>            _this.name=<span class="hljs-string">'xxx'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        },<span class="hljs-number">1000</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>            <span class="hljs-comment">//=&gt;this:obj 箭头函数中的this继承宿主环境中的this</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>        },<span class="hljs-number">1000</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>obj.fn();
+</div></code></pre>
+
+<p><strong><code>JS严格模式下的this情况</code></strong></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-meta">"use strict"</span>; <span class="hljs-comment">//=&gt;代码第一行加上这句话，就开启了JS中的严格模式</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-meta">    "use strict"</span>;<span class="hljs-comment">//=&gt;只在当前私有作用域中使用严格模式(也需要处于当前作用域第一行)</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div></code></pre>
+
+<blockquote>
+  <p>非严格模式下不明确执行主体，浏览器认为执行主体默认是window（this一般都是window）；但是在严格模式下，执行主体不明确，this是undefined；</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-javascript hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-meta">"use strict"</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>~<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//=&gt;this:undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}();
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>fn();<span class="hljs-comment">//=&gt;this:undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-built_in">window</span>.fn();<span class="hljs-comment">//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>fn.call();<span class="hljs-comment">//=&gt;this:undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>fn.call(<span class="hljs-built_in">window</span>);<span class="hljs-comment">//=&gt;this:window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>fn.call(<span class="hljs-literal">null</span>/<span class="hljs-literal">undefined</span>);<span class="hljs-comment">//=&gt;this:null/undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>...
+</div></code></pre></div></body></html>

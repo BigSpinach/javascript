@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		
+	</body>
+	<script>
+		console.log("------------方式1：字面量方式创建------不支持变量的匹配----------")
+		{
+			//方式1：字面量方式创建------不支持变量的匹配
+			let reg =/^\d+$/;
+			console.log(reg.test(1234567890));//true
+			
+			//不支持变量的匹配
+			let reg2 = /^\d+"name"+$/;//这个的结果是： \d+出现一次或多次，“name 出现一次 ，”+出现一次或多次
+			let name = "liukai";
+			console.log(reg2.test("2liukai6"));//false
+			console.log(reg2.test('22"name""'));//true			
+		}
+		console.log("------------2实例创建的方式new RegExp('正则字符串')----------");
+		{
+			//方式2：实例创建方式创建------注意转义字符  \\d
+			let reg1 = new RegExp("^\\d+$");	
+			console.log(reg1.test("123123"));//true
+			console.log(reg1.test(123123));//true
+			
+			//支持变量的匹配
+			let name = "liukai";
+			let reg2 = new RegExp("^\\d+"+name+"+$");
+			console.log(reg2.test("2liukai"));//true
+			console.log(reg2.test('22"name""'));//false
+		}
+	</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/31435638?s=400&u=2d47d5980334eca04926f6fa0e31a2908771163b&v=4" type="image/x-icon">
+		<script scr=" "></script>
+	</head>
+	<body>
+		
+		
+	</body>
+	<script>
+		let str ="My name is {0},我今年{1}岁,i love {2}。";
+		let reg = /{(\d+)}/g;
+		let arr=["刘凯", 26, "Program"];
+		str = str.replace(reg,function(){
+			//return arr[arguments[1]];
+			return arr[RegExp.$1];//IE不兼容
+			
+		});
+		
+		console.log(str);
+	</script>
+</html>

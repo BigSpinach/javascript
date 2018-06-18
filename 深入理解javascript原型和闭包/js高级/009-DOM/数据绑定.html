@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+		<style>
+			.product-list div {
+				width: 250px;
+				border: 1px solid transparent;
+				margin: 10px 10px;
+			}
+			
+			.product-list a {
+				display: block;
+				width: 100%;
+			}
+			
+			.product-list a:hover {
+				border: 1px solid red;
+			}
+			
+			.product-list img {
+				width: 100%;
+			}
+			
+			.product-list a p {
+				margin-top: 5px;
+				text-decoration: none;
+				font-size: 14px;
+				text-indent: 2em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="product-list">
+			<div>
+				<!--<a href="#">
+					<img src="https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i2/116784854/TB2ik03suGSBuNjSspbXXciipXa_!!0-saturn_solar.jpg_250x250.jpg_.webp" alt="" />
+					<p>MSI/微星 GS65 8RF-012CN 酷睿8代 GTX1070 8G独显轻薄游戏本</p>
+				</a>-->
+			</div>
+			
+		</div>
+	</body>
+	<script>
+		
+		
+//		let divs = document.createElement('div');
+//		divs.innerHTML = `111`;
+//		father.appendChild(divs);
+		//XMLHttpRequest对象获取json数据
+		var xhr = new XMLHttpRequest();
+		xhr.open('get', 'data.json', false);
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4 && xhr.status === 200) {
+				var result = xhr.responseText;
+				let strjson = result.jsonParse;
+				//console.log(strjson);
+				//动态绑定数据1----动态创建元素节点+append的形式
+				let father = document.getElementById("product-list");
+				//console.log(father);
+				appendProduct(father, result);
+			};
+		}
+		xhr.send(null);
+		//动态创建元素节点+append的形式
+		function appendProduct(fatherNode,goods) {
+			for(let i = 0; i < goods.length; i++) {
+				//let arr = goods[i];
+				//父级节点--fatherNode
+				//创建node节点
+				let div = document.createElement('div');
+				//let title =goods[i].title;
+				
+				div.innerHTML =goods[i].title;
+				fatherNode.appendChild(div);
+			}
+		}
+	</script>
+
+</html>

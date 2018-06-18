@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BigSpinach</title>
+	</head>
+	<body>
+		<h1>工厂模式</h1>
+		
+		
+	</body>
+	<script> 
+		{
+			function myFatory(name,age){
+				let obj ={};
+				obj.name=name;
+				obj.age=age;
+				obj.say=function(){
+					console.log("我是"+this.name+",我"+this.age+"岁了。");
+				}
+				return obj;
+			};
+			
+			//执行
+			//myFatory('刘凯',26).say();
+			//console.log(myFatory("bigs",26));/{name: "bigs", age: 26, say: ƒ}
+			
+			
+			
+			
+		}
+	</script>
+</html>
